@@ -1,0 +1,50 @@
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3><i class="fa fa-shopping-cart"></i>  <b>{{title}}</b></h3>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-2">
+            <a href="#/bien/new"> <button type="button" class="btn btn-primary">AGREGAR <i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i> </button> </a>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-6">
+            <label for="">Buscar Bien, Codigo, Unidades</label>
+            <input type="text" name="buscar" ng-model="buscar" ng-change="cargar()" class="form-control" placeholder="Busqueda solo por nombre del bien">
+        </div>
+      </div>
+
+
+
+          </br>
+          </br>
+      <table class="one"  width="100%">
+        <thead>
+          <tr>
+            <th width="5%"> Nro. </th>
+            <th width="30%"> Bien </th>
+            <th width="20%"> Codigo de Bien</th>
+            <th width="20%"> Unidad de Medida </th>
+            <th width="25%"> Acciones </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="Bien in Bienes | filter:search">
+            <td> {{$index + 1}} </td>
+            <td style="text-align: left;"> {{Bien.bien}} </td>
+            <td> {{Bien.clasificadorCode}}.{{Bien.id_almacen}}.{{Bien.codigo}} </td>
+            <td style="text-align: left;"> {{Bien.medida}} </td>
+            <td>
+              <div >
+                <a href="#/bien/edit/{{Bien.id}}" style="color:#f0ad4e;"> <i class="fa fa-pencil" aria-hidden="true"></i> Editar </a> &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#/bien/view/{{Bien.id}}" style="color:#31708f;"> <i class="fa fa-eye" aria-hidden="true"></i> Ver </a> &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#/bien/delete/{{Bien.id}}" style="color:#c12e2a;"> <i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar</a> </td>
+              </div>
+
+          </tr>
+        </tbody>
+      </table>
+
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>

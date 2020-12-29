@@ -1,0 +1,196 @@
+<!-- DateTime Picker  -->
+<link rel="stylesheet" href="assets/css/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css" />
+
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h5 style="color: #009688; text-align: left; font-size: 18px; font-weight: bold; .stroke {-webkit-text-stroke: 2px;}">GAMT - Unidad de Almacenes</h5>
+      <div >
+          <h4 align="right"> Registrado por Usuario: {{Movimientos[0].name}}  </h4>
+        </div>
+    </div>
+    <div class="panel-body">
+      <div class="rows">
+          <h3 align="center"> <b>{{Movimientos[0].movimiento}} N° {{Movimientos[0].nro_moviento}} </b></h3>       
+        <div class="form-group col-md-12" style=" border-width: 5px; border-style: double; border-color: #607D8B; border-radius: 5px; padding: 20px;">
+          <div class="col-md-4">
+            <span style="color: #1976D2; font-weight: bold; ">ORIGEN : </span>
+            <label>{{Movimientos[0].concepto}}</label>
+          </div>
+          <div class="col-md-4">
+            
+          </div>
+          <div class="col-md-4">
+            <span style="color: #1976D2; font-weight: bold; ">FECHA : </span>
+            <label>{{Movimientos[0].fecha}}</label>
+          </div>
+          </br>
+          <h4 align="left" class="col-md-12"> Documentos:</h4>
+          </br>
+          <div class="col-md-6">
+            <span style="color: #1976D2; font-weight: bold; ">ORDEN DE COMPRA : </span>
+            <label>{{Movimientos[0].codigo_pedido}}</label>
+          </div>
+          <div class="col-md-6">
+            <span style="color: #1976D2; font-weight: bold; ">NRO. PEDIDO : </span>
+            <label>{{Movimientos[0].orden_compra}}</label>
+          </div>
+          <div class="col-md-6">
+            <span style="color: #1976D2; font-weight: bold; ">RUPE : </span>
+            <label>{{Movimientos[0].rupe}}</label>
+          </div>
+          <div class="col-md-6">
+            <span style="color: #1976D2; font-weight: bold; ">OTROS DOCUMENTOS : </span>
+            <label>{{Movimientos[0].otro_documento}}</label>
+          </div>
+        </div>
+        
+        <div class="form-group col-md-12" style=" border-width: 5px; border-style: double; border-color: #607D8B; border-radius: 5px; padding: 25px;">
+          <h4>ESTRUCTURA PROGRAMATICA </h4> </br>  
+          <div class="col-md-12" ng-model="Movimiento in Movimientos">            
+            <label>{{Movimiento.aperturacodigo}} - {{Movimiento.apertura}}</label>
+          </div>
+        </div>
+        <div class="form-group col-md-12" style=" border-width: 5px; border-style: double; border-color: #607D8B; border-radius: 5px; padding: 25px;">
+            <h4>PARTIDA CLASIFICATORIA </h4> </br>  
+            <div class="col-md-12" ng-model="Movimiento in Movimientos">
+                <label>{{Movimiento.clasificadorcodigo}} - {{Movimiento.clasificador}}</label>
+            </div>
+        </div>
+        <div class="form-group col-md-12" style=" border-width: 5px; border-style: double; border-color: #607D8B; border-radius: 5px; padding: 25px;"> 
+          <div class="col-md-12">
+            <h4>ESTRUCTURA INSTITUCIONAL  Y FUNCIONARIO</h4>
+              <span style="color: #1976D2; font-weight: bold; ">ESTRUCTURA INSTITUCIONAL : </span><label>{{Movimientos[0].estructura}}</label> </br>
+              <span style="color: #1976D2; font-weight: bold; ">FUNCIONARIO : </span><label>{{Movimientos[0].nombres}} {{Movimientos[0].paterno}} {{Movimientos[0].materno}}</label>
+          </div>
+        </div>
+          
+          <div class="form-group col-md-12" style=" border-width: 5px; border-style: double; border-color: #607D8B; border-radius: 5px; padding: 25px;"> 
+          <h4> PROVEEDOR</h4>
+          <label>{{Movimientos[0].proveedor}}</label>
+          <h4> FACTURA / NOTA / RECIBO</h4></br>    
+          <div class="col-md-6">
+            <label>{{Movimientos[0].tipo_factura}} = {{Movimientos[0].total_factura}} Bs.</label>
+          </div>
+          <div class="col-md-6">
+            <span style="color: #1976D2; font-weight: bold; ">NUMEROS : </span>
+                      <label> {{Movimientos[0].numero_factura}} </label>
+          </div>
+          </div>
+        </div>
+        <div class="form-group col-md-12" style=" border-width: 5px; border-style: double; border-color: #BDBDBD; border-radius: 5px; background-color: #FFFFFF; padding: 10px;">
+          <h4>ITEMS : </h4>
+          <div class="col-md-12">
+            <table class="table table-bordered">
+              <thead>
+                <th bgcolor="#1976D2">Nro.</th>
+                <th bgcolor="#1976D2">Codigo</th>
+                <th bgcolor="#1976D2">Detalle</th>
+                <th bgcolor="#1976D2">Unidad</th>
+                <th bgcolor="#1976D2">Cantidad</th>
+                <th bgcolor="#1976D2">Total</th>
+              </thead>
+              <tr ng-repeat="Movimiento in Movimientos">
+                        <td>{{$index+1}}</td>
+                        <td>{{Movimiento.clasificadorcodigo}}.{{Movimiento.almacenCode}}.{{Movimiento.id_bien}}</td>
+                        <td>{{Movimiento.bien}}</td> 
+                        <td>{{Movimiento.unidad}}</td> 
+                        <td>{{Movimiento.cantidad}}</td>  
+                        <td>{{Movimiento.total}}</td> 
+              </tr>
+            </table>
+          </div>
+          <div class="col-md-10" style="text-align: right;">
+            <label>TOTAL: {{Movimientos[0].total_factura}} Bs.</label>
+          </div>
+          
+          <div class="col-md-10" style="text-align: right;">
+            <label>TOTAL NUMERAL:</label>
+          </div>
+        </div>
+        <div class="form-group col-md-12" style=" border-width: 5px; border-style: double; border-color: #BDBDBD; border-radius: 5px; background-color: #FFFFFF; padding: 10px;">
+                  <div class="col-md-12">
+            <label>Glosa</label>
+            <textarea cols="2" rows="2" class="form-control">{{Movimientos[0].glosa_entrada}}</textarea>
+          </div>
+        </div>        
+      </div>
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>
+
+<!--<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3><i class="fa fa-cube"></i>  <b>{{title}}</b></h3>
+    </div>
+    <div class="panel-body">
+
+      <form class="form-horizontal" role="form"  >
+
+        <div class="form-group">
+          <div class="col-lg-12" >
+            <center>   <h2>{{Movimientos[0].movimiento}} N° {{Movimientos[0].nro_moviento}} Por: {{Movimientos[0].name}} </h2> </center>
+          </div>
+        </div>
+
+        <p>
+          El funcionario <b> {{Movimientos[0].nombres}} {{Movimientos[0].paterno}} {{Movimientos[0].materno}} </b> que es <b>{{Movimientos[0].estructura}}</b>  ingreso por concepto de <b>{{Movimientos[0].concepto}}</b>.
+        </p>
+        <p>
+          El motivo se detalla por la glosa de: <b> <i>{{Movimientos[0].glosa_entrada}}</i> </b>
+        </p>
+
+        <div class="form-group">
+          <div class="col-lg-4">
+            <b>FECHA DEL INGRESO:</b>
+          </div>
+          <div class="col-lg-8">
+            <p> {{Movimientos[0].fecha}} </p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-lg-2">
+            <b>DOCUMENTOS PRESENTADOS:</b>
+          </div>
+          <div class="col-lg-2">
+            <p ng-if="(Movimientos[0].rupe).length > 0" >          RUPE: {{Movimientos[0].rupe}} </p>
+            <p ng-if="(Movimientos[0].hoja_ruta).length > 0" >     HOJA DE RUTA: {{Movimientos[0].hoja_ruta}} </p>
+            <p ng-if="(Movimientos[0].codigo_pedido).length > 0" > CODIGO PEDIDO: {{Movimientos[0].codigo_pedido}} </p>
+            <p ng-if="(Movimientos[0].orden_compra).length > 0" >  ORDEN COMPRA: {{Movimientos[0].orden_compra}} </p>
+            <p ng-if="(Movimientos[0].otro_documento).length > 0" >OTRO: {{Movimientos[0].otro_documento}} </p>
+          </div>
+
+          <div class="col-lg-2">
+            <b>DATOS DE LA FACTURA:</b>
+          </div>
+          <div class="col-lg-2">
+            <p > Tipo de factua: {{Movimientos[0].tipo_factura}} </p>
+            <p > Codigo de factura: {{Movimientos[0].numero_factura}} </p>
+            <p > Monto total de la : {{Movimientos[0].total_factura}} </p>
+          </div>
+
+        </div>
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Bien </th> <th>Medida</th> <th>Cantidad</th> <th>Precio</th> <th>Clasificadores</th> <th>Aperturas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="Movimiento in Movimientos">
+              <td>{{Movimiento.bien}}</td> <td>{{Movimiento.unidad}}</td> <td>{{Movimiento.cantidad}}</td>  <td>{{Movimiento.total}}</td> <td>{{Movimiento.clasificadorcodigo}} - {{Movimiento.clasificador}}</td> <td>{{Movimiento.aperturacodigo}} - {{Movimiento.apertura}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+
+
+
+        <a href="#/movimiento/" class="btn btn-default"> <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Atras</a>
+      </form>
+
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>
+-->

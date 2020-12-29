@@ -1,0 +1,306 @@
+<!-- DateTime Picker  -->
+<link rel="stylesheet" href="assets/css/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css" />
+
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3><i class="fa fa-shopping-cart"></i>  <b>{{title}}  {{ Movimientos.movimiento }} N° {{ numero }}</b></h3>
+    </div>
+    <div class="panel-body">
+
+      <form ng-submit="saveMovimiento()" id="formIngreso">
+
+        <input type="hidden" class="form-control"  ng-model="Movimientos.movimiento">
+
+          <div class="form-group col-md-12">
+            <div class="col-md-4">
+              <label for="" class="control-label">Fecha de Movimiento</label><br>
+              <div class='input-group date'>
+                <input type='text' class="form-control" id='fecha' placeholder="2016-01-01" ng-model="Movimientos.fecha" />
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="" class="control-label">Tipo de Ingreso</label><br>
+              <input type="text" ng-model="Movimientos.id_concepto" class="form-control" placeholder="Escriba el ingreso" list="id_concepto"  required >
+              <datalist id="id_concepto">
+                <option ng-repeat="Concepto in Conceptos"  ng-selected="Movimientos.id_concepto == Concepto.id"  value="{{Concepto.concepto}}">
+              </datalist>
+            </div>
+          </div>
+
+          <div class="form-group col-md-12">
+            <h4><span class="glyphicon glyphicon-book col-md-12" style="color: #0288D1; padding: 7px; background-color: #B3E5FC; border-radius:10px;"><b> DOCUMENTOS </span></h4>
+            <div class="col-md-2">
+              <label for="" class="control-label">Nro. de Pedido</label><br>
+              <input type="text" class="form-control"  ng-model="Movimientos.codigo_pedido" required >
+            </div>
+            <div class="col-md-2">
+              <label for="" class="control-label">Nro. Informe</label><br>
+              <input type="text" class="form-control"  ng-model="Movimientos.codigo_informe" >
+            </div>
+            <div class="col-md-2">
+              <label for="" class="control-label">Orden de Compra</label><br>
+              <input type="text" class="form-control"  ng-model="Movimientos.orden_compra"  required >
+            </div>
+            <div class="col-md-2">
+              <label for="" class="control-label">RUPE</label><br>
+              <input type="text" class="form-control"  ng-model="Movimientos.rupe" ng-change="cambio('rupe')" >
+            </div>
+
+            <div class="col-md-2">
+              <label for="" class="control-label">Otro Documento</label><br>
+              <input type="text" class="form-control"  placeholder="Carta,.. etc."   ng-model="Movimientos.otro_documento">
+            </div>
+          </div>
+          <div class="form-group col-md-12">
+            <h4><span class="glyphicon glyphicon-list-star col-md-12" style="color: #0288D1; padding: 7px; background-color: #B3E5FC; border-radius:10px;"><b> PROVEEDOR </span></h4>
+            <div class="col-md-12">
+              <label for="" class="control-label">Provedor</label><br>
+              <input type="text" ng-model="Movimientos.id_proveedor" class="form-control" placeholder="Escriba el proveedor" list="id_proveedor" required >
+              <datalist id="id_proveedor">
+                <option ng-repeat="Proveedor in Proveedores"  value="{{Proveedor.proveedor}} |  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NIT.:  {{Proveedor.nit}}">
+              </datalist>
+            </div>
+          </div>
+          <div class="form-group col-md-12">
+            <h4><span class="glyphicon glyphicon-list-alt col-md-12" style="color: #0288D1; padding: 7px; background-color: #B3E5FC; border-radius:10px;"><b> FACTURAS/NOTAS/RECIBOS </span></h4>
+
+            <div class="col-md-3">
+              <label for="" class="control-label">Tipo </label><br>
+              <input type="text" class="form-control" ng-model="Movimientos.tipo_factura"  list="tipos" required >
+              <datalist id="tipos">
+                <option value="Factura">Factura</option>
+                <<option value="Factura Eventual">Factura Eventual</option>
+                <option value="Recibo">Recibo</option>
+                <option value="Nota">Nota</option>
+              </datalist>
+            </div>
+            <div class="col-md-3">
+              <label for="" class="control-label">Numero</label><br>
+              <input type="text" class="form-control"  placeholder="001, 002"   ng-model="Movimientos.numero_factura" required >
+            </div>
+            <div class="col-md-3">
+              <label for="" class="control-label">Monto Total</label><br>
+              <input type="text" class="form-control"  placeholder="Monto en Bs." ng-blur="cambio(this)"   ng-model="montoTotal" required  >
+              <input type="hidden"  ng-model="Movimientos.total_factura" required  >
+            </div>
+          </div>
+
+          <table class="table table-striped table-bordered" border="0" width="100%">
+            <thead style="background-color:red; color:white;">
+              <tr>
+                <th width="100%" colspan="3">Datos importantes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+
+                <td width="20%">
+                  <label class="control-label">Apertura Programatica</label>
+                  <input type="text" id="aperturas" name="aperturas" class="form-control" multiple ng-model="Movimientos.id_apertura" required  />
+                   <script type="text/javascript">
+                     $(document).ready(function() {
+                       $("#aperturas").tokenInput("index.php/Aperturas/ver/JSON/list");
+                     });
+                   </script>
+
+                  <label class="control-label">Clasificadores Presupuestarios</label>
+                  <input type="text" id="clasificadores" class="form-control" multiple ng-model="Movimientos.id_clasificador" required /  >
+                  <script type="text/javascript">
+                   $(document).ready(function() {
+                     $("#clasificadores").tokenInput("index.php/Clasificadores/ver/JSON/list");
+                   });
+                  </script>
+                </td>
+
+                <td width="60%">
+                    <div class="row">
+                      <div class="col-md-5" style="font-size:10px;">
+                        <input type="text" id="articulo" ng-change="cargaBienes()"  ng-model="articulo" class="form-control" placeholder="Buscar bienes" ng-disabled="botonActivar == false">
+                        <ul style="background-color: white; border:solid 1px #bbbbbb; list-style-type: none;" class="bienes">
+                          <li ng-repeat="bien in bienes | filter:articulo">
+                            <a ng-click="cambiaBien(bien.name, bien.code, bien.medida, bien.clasificadorCode, bien.almacenCode, bien.bienCode)" style="text-decoration: none;" >
+                              <div class="row">
+                                <div class="col-md-6"> <b> {{ bien.name }} </b> </div>
+                                <div class="col-md-6"> {{ bien.medida }} </div>
+                              </div>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-md-2">
+                        <input type="text" ng-model="cantidad" class="form-control" ng-disabled="botonActivar == false" placeholder="Cantidad">
+                        <input type="hidden" ng-model="idarticulo" ng-disabled="botonActivar == false"> <input type="hidden" ng-model="medida">
+                      </div>
+                      <div class="col-md-2">
+                        <input type="text" ng-model="precio" class="form-control" ng-disabled="botonActivar == false" placeholder="Precio">
+                      </div>
+                      <div class="col-md-1">
+                        <button type="button" ng-click="agregarArticulo()" class="btn btn-info"><i class="fa fa-plus-circle fa-2">Insertar</i></button>
+                      </div>
+                    </div>
+
+                    <table class="table" border="0" style="font-size:12px;">
+                      <thead>
+                       <tr>
+                         <th width="3%">Nro</th>
+                         <th>
+                           <div class="row">
+                              <div class="col-md-2"> Codigo </div>
+                              <div class="col-md-6"> Articulo </div>
+                              <div class="col-md-2"> Unidad </div>
+                            </div>
+                         </th>
+                         <th width="10%">Cantidad</th>
+                         <th width="10%"> Total</th>
+                         <th width="20%"> Accion </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                     <tr ng-repeat="Articulo in Articulos">
+                       <td>{{$index+1}}</td>
+                       <td>
+                         <div class="row">
+                            <div class="col-md-2"> <b>{{Articulo.codigoVer}} </b> </div>
+                            <div class="col-md-6"><b>{{Articulo.articulo}}</b></div>
+                            <div class="col-md-2"> {{Articulo.medida}} </div>
+                          </div>
+                       </td>
+                       <td>{{Articulo.cantidad}}</td>
+                       <td>{{Articulo.precio}}</td>
+                       <td>{{Articulo.falta}} Sobra  <a style="color:#ff404b; text-decoration: none;" ng-click="eliminarBien(Articulo.indice)"><i class="fa fa-trash-o" ></i> Eliminar</a> </td>
+                     </tr>
+                    </tbody>
+                  </table>
+
+                </td>
+              </tr>
+              <tr>
+                <td width="20%">
+                  <label class="control-label">Apertura Programatica</label>
+                  <input type="text" id="aperturas" name="aperturas" class="form-control" multiple ng-model="Movimientos.id_apertura" required  />
+                   <script type="text/javascript">
+                     $(document).ready(function() {
+                       $("#aperturas").tokenInput("index.php/Aperturas/ver/JSON/list");
+                     });
+                   </script>
+
+                  <label class="control-label">Clasificadores Presupuestarios</label>
+                  <input type="text" id="clasificadores" class="form-control" multiple ng-model="Movimientos.id_clasificador" required /  >
+                  <script type="text/javascript">
+                   $(document).ready(function() {
+                     $("#clasificadores").tokenInput("index.php/Clasificadores/ver/JSON/list");
+                   });
+                  </script>
+                </td>
+
+                <td width="60%">
+                    <div class="row">
+                      <div class="col-md-5" style="font-size:10px;">
+                        <input type="text" id="articulo" ng-change="cargaBienes()"  ng-model="articulo" class="form-control" placeholder="Buscar bienes" ng-disabled="botonActivar == false">
+                        <ul style="background-color: white; border:solid 1px #bbbbbb; list-style-type: none;" class="bienes">
+                          <li ng-repeat="bien in bienes | filter:articulo">
+                            <a ng-click="cambiaBien(bien.name, bien.code, bien.medida, bien.clasificadorCode, bien.almacenCode, bien.bienCode)" style="text-decoration: none;" >
+                              <div class="row">
+                                <div class="col-md-6"> <b> {{ bien.name }} </b> </div>
+                                <div class="col-md-6"> {{ bien.medida }} </div>
+                              </div>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-md-2">
+                        <input type="text" ng-model="cantidad" class="form-control" ng-disabled="botonActivar == false" placeholder="Cantidad">
+                        <input type="hidden" ng-model="idarticulo" ng-disabled="botonActivar == false"> <input type="hidden" ng-model="medida">
+                      </div>
+                      <div class="col-md-2">
+                        <input type="text" ng-model="precio" class="form-control" ng-disabled="botonActivar == false" placeholder="Precio">
+                      </div>
+                      <div class="col-md-1">
+                        <button type="button" ng-click="agregarArticulo()" class="btn btn-info"><i class="fa fa-plus-circle fa-2">Insertar</i></button>
+                      </div>
+                    </div>
+
+                    <table class="table" border="0" style="font-size:12px;">
+                      <thead>
+                       <tr>
+                         <th width="3%">Nro</th>
+                         <th>
+                           <div class="row">
+                              <div class="col-md-2"> Codigo </div>
+                              <div class="col-md-6"> Articulo </div>
+                              <div class="col-md-2"> Unidad </div>
+                            </div>
+                         </th>
+                         <th width="10%">Cantidad</th>
+                         <th width="10%"> Total</th>
+                         <th width="20%"> Accion </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                     <tr ng-repeat="Articulo in Articulos">
+                       <td>{{$index+1}}</td>
+                       <td>
+                         <div class="row">
+                            <div class="col-md-2"> <b>{{Articulo.codigoVer}} </b> </div>
+                            <div class="col-md-6"><b>{{Articulo.articulo}}</b></div>
+                            <div class="col-md-2"> {{Articulo.medida}} </div>
+                          </div>
+                       </td>
+                       <td>{{Articulo.cantidad}}</td>
+                       <td>{{Articulo.precio}}</td>
+                       <td>{{Articulo.falta}} Sobra  <a style="color:#ff404b; text-decoration: none;" ng-click="eliminarBien(Articulo.indice)"><i class="fa fa-trash-o" ></i> Eliminar</a> </td>
+                     </tr>
+                    </tbody>
+                  </table>
+
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+
+
+
+
+        <div class="form-group col-md-12">
+            <div class="col-md-12">
+              <h4><span class="glyphicon glyphicon-list col-md-12" style="color: #0288D1; padding: 7px; background-color: #B3E5FC; border-top-left-radius: 10px; border-top-right-radius: 10px;"><b> GLOSA / MOTIVO</span></h4>
+              <textarea class="form-control" rows="2" cols="100" ng-model="Movimientos.glosa_entrada" id="glosa" required> </textarea>
+            </div>
+          </div>
+          <div class="form-group col-md-12">
+        <div class="rows">
+          <div class="col-md-3">
+            <button type="submit" name="button" class="{{accion}}" ng-disabled="botonActivar == false || sumaTotal == false ">
+              <i class="fa fa-plus-circle" aria-hidden="true"></i> {{button}}
+            </button>
+          </div>
+          <div class="col-md-3">
+            <a href="#/movimiento" class="btn btn-default"> <i class="fa fa-times-circle" aria-hidden="true"></i> Cancelar</a>
+          </div>
+          <div class="col-md-6">
+            <div class="{{panel}}" role="alert"> <strong>{{msj}}</strong> </div>
+          </div>
+        </div>
+      </form>
+
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>
+
+<!-- DateTime Picker -->
+<script src="assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+<script src="assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.es.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $.fn.datetimepicker.defaults.language = 'es';
+  });
+</script>
+<script type="text/javascript">
+  $(function () {
+    $('#fecha').datetimepicker({ format: 'YYYY-MM-DD'});
+  });
+</script>

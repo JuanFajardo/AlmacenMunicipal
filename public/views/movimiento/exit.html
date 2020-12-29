@@ -1,0 +1,131 @@
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3><i class="fa fa-external-link"></i>  <b>{{title}}</b></h3>
+    </div>
+    <div class="panel-body">
+
+      <form class="form-horizontal" ng-submit="saveMovimiento()">
+        <input type="hidden"  ng-model="id_apertura">
+        <input type="hidden"  ng-model="id_clasificador">
+        <input type="hidden"  ng-model="movimiento">
+        <input type="hidden"  ng-model="fecha">
+        <input type="hidden"  ng-model="rupe">
+        <input type="hidden"  ng-model="hoja_ruta">
+        <input type="hidden"  ng-model="codigo_pedido">
+        <input type="hidden"  ng-model="orden_compra">
+        <input type="hidden"  ng-model="tipo_factura">
+        <input type="hidden"  ng-model="numero_factura">
+        <input type="hidden"  ng-model="total_factura">
+        <input type="hidden"  ng-model="otro_documento">
+
+        <input type="hidden"  ng-model="id_proveedor">
+
+        <input type="hidden"  ng-model="movimiento_ingreso">
+
+        <div class="form-group">
+          <div class="col-lg-12" >
+            <center><h3 >Salida inmediata N° {{Movimientos[0].nro_moviento}}  </h2> </center>
+          </div>
+        </div>
+
+        <p>
+          El funcionario <b> {{Movimientos[0].nombres}} {{Movimientos[0].paterno}} {{Movimientos[0].materno}} </b> que es <b>{{Movimientos[0].estructura}}</b>  ingreso por concepto de <b>{{Movimientos[0].concepto}}</b>.
+        </p>
+        <p>
+          El motivo se detalla por la glosa de: <b> <i>{{Movimientos[0].glosa_entrada}}</i> </b>
+        </p>
+
+        <div class="form-group">
+          <div class="col-lg-4">
+            <b>FECHA DEL INGRESO:</b>
+          </div>
+          <div class="col-lg-8">
+            <p> {{Movimientos[0].fecha}} </p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-lg-2">
+            <b>DOCUMENTOS PRESENTADOS:</b>
+          </div>
+          <div class="col-lg-2">
+            <p ng-if="(Movimientos[0].rupe).length > 0" >          Rupe: {{Movimientos[0].rupe}} </p>
+            <p ng-if="(Movimientos[0].hoja_ruta).length > 0" >     Hoja de Ruta: {{Movimientos[0].hoja_ruta}} </p>
+            <p ng-if="(Movimientos[0].codigo_pedido).length > 0" > Codigo de Pedido: {{Movimientos[0].codigo_pedido}} </p>
+            <p ng-if="(Movimientos[0].orden_compra).length > 0" >  Orden de Compra: {{Movimientos[0].orden_compra}} </p>
+            <p ng-if="(Movimientos[0].otro_documento).length > 0" >Otro: {{Movimientos[0].otro_documento}} </p>
+          </div>
+
+          <div class="col-lg-2">
+            <b>DATOS DE LA FACTURA:</b>
+          </div>
+          <div class="col-lg-2">
+            <p > Tipo de factua: {{Movimientos[0].tipo_factura}} </p>
+            <p > Codigo de factura: {{Movimientos[0].numero_factura}} </p>
+            <p > Monto total de la : {{Movimientos[0].total_factura}} </p>
+          </div>
+
+        </div>
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Bien </th> <th>Medida</th> <th>Cantidad</th> <th>Precio</th> <th>Clasificadores</th> <th>Aperturas</th> <th>Seleccionar Articulos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="Movimiento in Movimientos">
+              <td>{{Movimiento.bien}}</td> <td>{{Movimiento.unidad}}</td> <td>{{Movimiento.cantidad}}</td>  <td>{{Movimiento.total}}</td> <td>{{Movimiento.clasificadorcodigo}} - {{Movimiento.clasificador}}</td> <td>{{Movimiento.aperturacodigo}} - {{Movimiento.apertura}}</td>
+
+              <td> <input type="checkbox"  required ng-click="agregarArticulo($index, Movimiento.id_bien, Movimiento.bien, Movimiento.unidad, Movimiento.cantidad, Movimiento.total)"> </td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+
+
+        <div class="row">
+
+          <div class="col-md-4">
+            <label class="control-label">Funcionario</label><br>
+            <input type="text" ng-model="id_funcionario" class="form-control" placeholder="Escriba el funcionario" list="id_funcionario" required >
+            <datalist id="id_funcionario">
+              <option ng-repeat="Funcionario in Funcionarios"  ng-selected="Funcionarios.id == Movimientos.id_funcionario"  value="{{Funcionario.nombres}}, {{Funcionario.paterno}}, {{Funcionario.materno}} ">
+            </datalist>
+          </div>
+
+          <div class="col-md-4">
+            <label >Tipo de Ingreso :</label>
+            <input type="text" ng-model="id_concepto" class="form-control" placeholder="Escriba el ingreso" list="id_concepto"  required >
+            <datalist id="id_concepto">
+              <option ng-repeat="Concepto in Conceptos"  ng-selected="Movimientos.id_concepto == Concepto.id"  value="{{Concepto.concepto}}">
+            </datalist>
+          </div>
+
+          <div class="col-md-3">
+            <label >Glosa de Salida</label>
+            <textarea name="name" rows="1" class="form-control" ng-model="glosa_salida" required  ></textarea>
+          </div>
+        </div>
+
+
+
+        <div class="row">
+          <div class="col-md-3">
+            <button type="submit" name="button" class="{{accion}}">
+              <i class="fa fa-plus-circle" aria-hidden="true"></i> {{button}}
+            </button>
+          </div>
+          <div class="col-md-3">
+            <a href="#/movimiento" class="btn btn-default"> <i class="fa fa-times-circle" aria-hidden="true"></i> Cancelar</a>
+          </div>
+          <div class="col-md-6">
+            <div class="{{panel}}" role="alert"> <strong>{{msj}}</strong> </div>
+          </div>
+        </div>
+
+      </form>
+
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>

@@ -1,0 +1,102 @@
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3><i class="fa fa-tty"></i>  <b>{{title}}</b></h3>
+    </div>
+    <div class="panel-body">
+
+      <form autocomplete="off" ng-submit="saveProveedor()">
+        <div class="form-group">
+            <!--<div class="col-md-4">
+              <label>Tipo de Proveedor</label>
+              <input type="text" name="proveedor" ng-model="Proveedores.entidad" class="form-control" list="proveedores">
+              <datalist id="proveedores">
+                <option value="Empresas Srl">Empresas Srl</option>
+                <option value="Unipersonales">Unipersonales</option>
+                <option value="Persona Juridica">Persona Juridica</option>
+                <option value="Comerciante Minorista">Comerciante Minorista</option>
+              </datalist>
+              <!--
+              <select class="form-control" ng-model="Proveedores.entidad" required>
+                <option ng-repeat= "entidad in entidades" ng-selected= "Proveedores.entidad == entidad.entidad" value = "{{entidad.entidad}}" > {{entidad.entidad}} </option>
+              </select>
+            </div>-->
+            <input type="hidden" name="proveedor" ng-model="Proveedores.entidad" value="dddd">
+            <div class="col-md-8">
+              <label>Proveedor</label>
+              <input type="text" class="form-control"  placeholder="Proveedor" ng-model="Proveedores.proveedor" required>
+            </div>
+              <input type="hidden" ng-model="Proveedores.rubro" value="No necesario">
+            <!--
+            <div class="col-md-4">
+              <label>Actividad</label>
+              <input type="text" class="form-control"  placeholder="Rubro" ng-model="Proveedores.rubro" required>
+            </div>-->
+            <div class="col-md-2">
+              <label>NIT</label>
+              <input type="text" class="form-control"  placeholder="NIT" ng-model="Proveedores.nit">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-8">
+              <label>Responsable, nombre completo</label>
+              <input type="text" class="form-control"  placeholder="Responsable"  ng-model="Proveedores.responsable">
+            </div>
+            <div class="col-md-2">
+              <label>Ciudad</label>
+              <input type="text" class="form-control" list="ciudades"  placeholder="Ciudad" ng-model="Proveedores.ciudad" required>
+                <datalist id="ciudades">
+                  <option value="La Paz"> La Paz</option>
+                  <option value="Oruro"> Oruro</option>
+                  <option value="Potosi"> Potosi</option>
+                  <option value="Beni"> Beni</option>
+                  <option value="Pando"> Pando</option>
+                  <option value="Cochabamba"> Cochabamba</option>
+                  <option value="Santa Cruz"> Santa Cruz</option>
+                  <option value="Tarija"> Tarija</option>
+                  <option value="Sucre"> Sucre</option>
+                  <option value="El Alto"> El Alto</option>
+                  <option value="Tupiza"> Tupiza</option>
+                  <option value="Cotagaita"> Cotagaita</option>
+                  <option value="Villazon"> Villazon</option>
+                  <option value="Uyuni"> Uyuni</option>
+                </datalist>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-6">
+              <label>Direccion</label>
+              <input type="text" class="form-control"  placeholder="Direccion" ng-model="Proveedores.direccion">
+            </div>
+            <div class="col-md-2">
+              <label>Telefono/Celular</label>
+              <input type="text" class="form-control"  placeholder="Telefono" ng-model="Proveedores.telefono"> 
+            </div>
+              <input type="hidden" ng-model="Proveedores.correo_electronico" value="No necesario">
+            <!--
+            <div class="col-md-12">
+              <label> Correos Electronicos</label>
+              <input type="text" class="form-control"  placeholder="Correos Electronicos" ng-model="Proveedores.correo_electronico"></br>
+            </div>
+            -->
+          </div>
+
+          <div class="col-md-12"><br></br>
+            <div class="form-group">
+              <div class="col-md-2">
+                <button type="submit" name="button" class="{{accion}}">
+                  <i class="fa fa-plus-circle" aria-hidden="true"></i> {{button}}
+                </button>
+              </div>
+              <div class="col-md-2">
+                <a href="#/proveedor" class="btn btn-info"> <i class="fa fa-times-circle" aria-hidden="true"></i> Cancelar</a>
+              </div>
+              <div class="col-md-6">
+                <div class="{{panel}}" role="alert"> <strong>{{msj}}</strong> </div>
+              </div>
+            </div>
+          </div>
+      </form>
+
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>

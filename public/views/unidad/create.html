@@ -1,0 +1,29 @@
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3><i class="fa fa-circle-o-notch"></i>  <b>{{title}}</b></h3>
+    </div>
+    <div class="panel-body">
+
+      <form autocomplete="off" ng-submit="saveUnidad()">
+        <div class="form-group col-md-6">
+          <label>Agregar nueva unidad:</label>
+          <input type="text" class="form-control"  placeholder="Clase de Unidad Ej: Bolsa"  ng-model="Unidades.unidad" autofocus></br>
+        </div>
+        <div class="form-group col-md-12">
+          <div class="col-md-2">
+            <button type="submit" name="button" class="{{accion}}">
+              <i class="fa fa-plus-circle" aria-hidden="true"></i> {{button}}
+            </button>
+          </div>
+          <div class="col-md-2">
+            <a href="#/unidad" class="btn btn-info"> <i class="fa fa-times-circle" aria-hidden="true"></i> Cancelar</a>
+          </div>
+          <div class="col-md-6">
+            <div class="{{panel}}" role="alert"> <strong>{{msj}}</strong> </div>
+          </div>
+        </div>
+      </form>
+
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3><i class="fa fa-institution"></i> {{title}}</h3>
+    </div>
+    <div class="panel-body">
+
+      <form autocomplete="off" ng-submit="saveEstructura()">
+        <div class="form-group">
+          <!-- <div class="col-md-4" id="staticParent">
+          <label>Codigo de Estructura</label>
+
+            <input type="text" class="form-control"  placeholder=""   list="estructuras" required ng-model="Estructuras.codigoEstructura" >
+            <datalist id="estructuras">
+              <option ng-repeat="estructura in estructuras"   value="{{estructura.codigoEstructura}} {{estructura.estructura}}">
+            </datalist>
+            
+          </div>-->
+          <div class="col-md-12">
+            <label>Cargo</label>
+            <input type="text" class="form-control"  placeholder="Nombre de Unidad" ng-model="Estructuras.estructura" required id="texto">  </br>
+          </div></br>
+        </div>
+        <div class="form-group">
+            <div class="col-md-1"> </div>
+            <div class="col-md-2">
+              <button type="submit" name="button" class="{{accion}}">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i> {{button}}
+              </button>
+            </div>
+            <div class="col-md-2">
+              <a href="#/estructura/" class="btn btn-info"> <i class="fa fa-times-circle" aria-hidden="true"></i> Cancelar</a>
+            </div>
+            <div class="col-md-6">
+              <div class="{{panel}}" role="alert"> <strong>{{msj}}</strong>
+              </div>
+           </div>
+        </div>
+
+      </form>
+
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>
+<script src="assets/js/plugins/solonumero.js"></script>

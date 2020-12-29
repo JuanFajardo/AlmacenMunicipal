@@ -1,0 +1,72 @@
+<!-- DateTime Picker  -->
+    <link rel="stylesheet" href="assets/css/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css" />
+
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3><i class="fa fa-users"></i>  <b>{{title}}</b> </h3>
+    </div>
+
+    <div class="panel-body">
+
+      <form autocomplete="off" ng-submit="saveRutas()" class="form-horizontal" role="form">
+        <div class="form-group">
+          <label for="ejemplo_email_3" class="col-lg-2 control-label">Nombres y Apellidos</label>
+          <div class="col-lg-6">
+            <input type="text" class="form-control"  placeholder="Juan Perez" ng-model="Rutas.nombreCompleto" style="margin:10px" >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="ejemplo_email_3" class="col-lg-2 control-label">C.I.</label>
+          <div class="col-lg-6">
+            <input type="text" class="form-control"  placeholder="1234567" ng-model="Rutas.ci" style="margin:10px" >
+          </div>
+        </div>
+        <div class="form-group">
+            <label for="ejemplo_email_3" class="col-lg-2 control-label">Usuario</label>
+            <div class="col-lg-6">
+            <input type="text" class="form-control"  placeholder="jperez" ng-model="Rutas.name" style="margin:10px">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="ejemplo_email_3" class="col-lg-2 control-label">Grupo</label>          
+          <div class="col-lg-6">
+            <select class="form-control" ng-model="Rutas.grupo">
+              <option ng-repeat="Grupo in Grupos"  ng-selected="Rutas.grupo == Grupo.id"  value="{{Grupo.id}}"> {{Grupo.grupo}} </option>
+            </select> </br>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="ejemplo_email_3" class="col-lg-2 control-label">Almacen</label>          
+          <div class="col-lg-6">
+            <select class="form-control" ng-model="Rutas.id_almacen">
+              <option ng-repeat="Almacen in Almacenes"  ng-selected="Rutas.id_almacen == Almacen.id"  value="{{Almacen.id}}"> {{Almacen.almacen}} </option>
+            </select> </br>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="ejemplo_email_3" class="col-lg-2 control-label">Contraseña</label>
+          <div class="col-lg-6">
+            <input type="password" class="form-control"  placeholder=" Cl4v3 " ng-model="Rutas.password" style="margin:10px">
+          </div>
+        </div>
+        <div class="form-group col-lg-offset-4">
+          <div class="col-md-2 col-lg-offset-2">
+            <button type="submit" name="button" class="{{accion}}">
+              <i class="{{botonIcono}}" aria-hidden="true"></i> {{button}}
+            </button>
+          </div>
+          <div class="col-md-2">
+            <a href="#/ruta" class="btn btn-info"> <i class="fa fa-times-circle" aria-hidden="true"></i> Cancelar</a>
+          </div>
+          <div class="col-md-3">
+            <div class="{{panel}}" role="alert"> <strong>{{msj}}</strong> </div>
+          </div>
+        </div>
+      </form>
+
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>

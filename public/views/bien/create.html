@@ -1,0 +1,49 @@
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3><i class="fa fa-shopping-cart"></i>  <b>{{title}}</b></h3>
+    </div>
+    <div class="panel-body">
+      <form autocomplete="off" ng-submit="saveBien()">
+        <div class="form-group col-md-5">
+          <label>Nombre de Bien</label>
+          <input type="text" class="form-control"  placeholder="Bien Ej.Casco?"   ng-model="Bienes.bien" required>
+        </div>
+        <div class="form-group col-md-3">
+          <label>Almacen</label>
+          <select class="form-control" ng-model="Bienes.id_almacen" required>
+              <option value="">-Seleccione Almacen-</option>
+              <option ng-repeat="Almacen in Almacenes"  ng-selected="Bienes.id_almacen == Almacen.id"  value="{{Almacen.id}}"> {{Almacen.almacen}} </option>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+          <label>Unidad de Medida</label>
+          <select class="form-control" ng-model="Bienes.id_unidad" required>
+              <option value="">-Seleccione Unidad-</option>
+              <option ng-repeat="Unidad in Unidades"  ng-selected="Bienes.id_unidad == Unidad.id"  value="{{Unidad.id}}"> {{Unidad.unidad}}  </option>
+          </select>
+        </div>
+        <div class="form-group col-md-10">
+          <label>Clasificador</label>
+          <select class="form-control" ng-model="Bienes.id_clasificador" required>
+              <option value="">-Seleccione Clasificador-</option>
+              <option ng-repeat="Clasificador in Clasificadores"  ng-selected="Bienes.id_clasificador == Clasificador.id"  value="{{Clasificador.id}}"> {{Clasificador.codigo}} -  {{Clasificador.clasificador}} </option>
+          </select> </br>
+        </div>
+        <div class="form-group col-md-10">
+          <div class="col-md-2">
+            <button type="submit" name="button" class="{{accion}}">
+              <i class="fa fa-plus-circle" aria-hidden="true"></i> {{button}}
+            </button>
+          </div>
+          <div class="col-md-2">
+            <a href="#/bien" class="btn btn-info"> <i class="fa fa-times-circle" aria-hidden="true"></i> Cancelar</a>
+          </div>
+          <div class="col-md-6">
+            <div class="{{panel}}" role="alert"> <strong>{{msj}}</strong> </div>
+          </div>
+        </div>
+      </form>
+    </div>
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>

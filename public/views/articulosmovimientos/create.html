@@ -1,0 +1,43 @@
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3><i class="fa fa-shopping-cart"></i>  <b>{{title}}</b></h3>
+    </div>
+    <div class="panel-body">
+      <form autocomplete="off" ng-submit="saveCatalogo()">
+        <div class="form-group col-md-12">
+          <label>Nombre de Bien</label>
+          <input type="text" class="form-control"  ng-model="ArticulosMovimiento.bien" >
+        </div>
+        <div class="form-group col-md-12">
+          <label>Observacion</label>
+          <input type="text" class="form-control"  ng-model="ArticulosMovimiento.observacion" >
+        </div>
+          <input type="hidden" ng-model="ArticulosMovimiento.cantidad" >
+          <input type="hidden" ng-model="ArticulosMovimiento.costo" >
+          <input type="hidden" ng-model="ArticulosMovimiento.total" >
+          <input type="hidden" ng-model="ArticulosMovimiento.costo_actual" >
+          <input type="hidden" ng-model="ArticulosMovimiento.total_actual" >
+          <input type="hidden" ng-model="ArticulosMovimiento.id_movimiento" >
+          <input type="hidden" ng-model="ArticulosMovimiento.id_bien" >
+          <input type="hidden" ng-model="ArticulosMovimiento.id_usuario" >
+          <input type="hidden" ng-model="ArticulosMovimiento.movimiento" >
+
+          <div class="form-group col-md-10">
+            <div class="col-md-2">
+              <button type="submit" name="button" class="{{accion}}">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i> {{button}}
+              </button>
+            </div>
+            <div class="col-md-2">
+              <a href="#/catalogo" class="btn btn-info"> <i class="fa fa-times-circle" aria-hidden="true"></i> Cancelar</a>
+            </div>
+            <div class="col-md-6">
+              <div class="{{panel}}" role="alert"> <strong>{{msj}}</strong> </div>
+            </div>
+          </div>
+
+      </form>
+    </div>
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>

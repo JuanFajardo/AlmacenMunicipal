@@ -1,0 +1,37 @@
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3><i class="fa fa-sitemap"></i>  <b>{{title}}</b></h3>
+    </div>
+    <div class="panel-body">
+
+      <form autocomplete="off" ng-submit="saveClasificador()">
+        <div class="form-group col-mod-6">
+          <label>Codigo</label>
+          <input type="text" class="form-control"  placeholder="Codigo Clasificador Ej.01" ng-model="Clasificadores.codigo" autofocus>
+        </div>
+        <div class="form-group col-mod-8">
+          <label>Clasificador</label>           
+          <input type="text" class="form-control"  placeholder="Clasificador" ng-model="Clasificadores.clasificador">
+        </div>
+        <div class="form-group col-mod-8">
+          <label>Descripcion Clasificador</label>
+          <textarea class="form-control" ng-model="Clasificadores.descripcion" rows="3" cols="100" ></textarea>
+        </div>
+        <div class="rows">
+          <div class="col-md-2">
+            <button type="submit" name="button" class="{{accion}}">
+              <i class="fa fa-plus-circle" aria-hidden="true"></i> {{button}}
+            </button>
+          </div>
+          <div class="col-md-2">
+            <a href="#/clasificador/" class="btn btn-info"> <i class="fa fa-times-circle" aria-hidden="true"></i> Cancelar</a>
+          </div>
+          <div class="col-md-6">
+            <div class="{{panel}}" role="alert"> <strong>{{msj}}</strong> </div>
+          </div>
+        </div>
+      </form>
+
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+<!-- DateTime Picker  -->
+<link rel="stylesheet" href="assets/css/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css" />
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3>Reporte  PEPS</h3>
+    </div>
+    <div class="panel-body">
+
+      <div class="rows">
+        <div class="col-md-6">
+          <input type="text" ng-model="search" class="form-control" placeholder="Ingresa un dato de busqueda"></br>
+        </div>
+      </div>
+      
+      <h4>Rango de fechas</h4>
+      <div class="col-md-6">
+        <span>Inicio</span>
+        <div class='input-group date' >
+          <input type='text' class="form-control" id='fecha' ng-model="Funcionarios.fech_nacimiento" />
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <span>Fin</span>
+        <div class='input-group date' >
+          <input type='text' class="form-control" id='fecha' ng-model="Funcionarios.fech_nacimiento" />
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div>
+      </div>
+
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>
+<!-- DateTime Picker -->
+<script src="assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+<script src="assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.es.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+    $.fn.datetimepicker.defaults.language = 'es';
+  });
+  $(function () {
+    $('#fecha').datetimepicker({ format: 'YYYY-MM-DD'});
+  });
+</script>

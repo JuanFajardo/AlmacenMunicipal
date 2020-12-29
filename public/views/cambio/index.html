@@ -1,0 +1,52 @@
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3><i class="fa fa-{{icono}}"></i>  <b>{{title}}</b></h3>
+    </div>
+    <div class="panel-body">
+
+      <div class="rows">
+        <div class="col-lg-12">
+          <h5>Selecciona su forma de actualizacion de Dolar y UFV's</h5>
+
+        </div>
+      </div>
+      <a href="#/cambio/new"> <button type="button" class="btn btn-primary">MANUAL <i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i> </button> </a>
+      <a href="index.php/ufv"> <button type="button" class="btn btn-primary">AUTOMATICO<i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i> </button> </a>
+          </br>
+          </br>
+
+
+       <table class="one" datatable="ng" dt-options="vm.dtOptions" width="100%">
+        <thead>
+          <tr>
+            <th width="5%"> Nro. </th>
+            <th width="15%"> Fecha </th>
+            <th width="10%"> Dolar Compra </th>
+            <th width="10%"> Venta Compra </th>
+            <th width="15%"> UFV </th>
+            <th width="15%"> Automatico </th>
+            <th width="20%"> Acciones </th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr ng-repeat="Cambio in Cambios">
+            <td> {{$index + 1}} </td>
+            <td> {{Cambio.fecha}} </td>
+            <td> {{Cambio.compra}} </td>
+            <td> {{Cambio.venta}} </td>
+            <td> {{Cambio.ufv}} </td>
+            <td> {{Cambio.automatico}} </td>
+            <td>
+              <div class="botonesAccion">
+                <a href="#/cambio/edit/{{Cambio.id}}" style="color:#f0ad4e;"> <i class="fa fa-pencil" aria-hidden="true"></i> Editar </a> &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#/cambio/view/{{Cambio.id}}" style="color:#31708f;"> <i class="fa fa-eye" aria-hidden="true"></i> Ver </a>&nbsp;&nbsp;&nbsp;&nbsp;
+              </div>
+
+          </tr>
+        </tbody>
+      </table>
+
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3><i class="fa fa-truck"></i>  <b>{{title}}</b></h3>
+    </div>
+    <div class="panel-body">
+
+      <div class="rows">
+        <div class="col-md-2">
+          <a href="#/almacen/new"> <button type="button" class="btn btn-primary">AGREGAR <i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i> </button> </a>
+        </div>
+        <div class="col-md-6">
+          <input type="text" ng-model="search" class="form-control" id="caracter" placeholder="Ingresa un dato de busqueda"> </br>
+        </div>
+      </div>
+      <table class="one" width="100%">
+        <thead>
+          <tr>
+            <th width="5%"> NRO. </th>
+            <th width="35%"> NOMBRE DE ALMACEN </th>
+            <th width="35%"> DIRECCION DE ALMACEN </th>
+            <th width="25%"> ACCIONES </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="Almacen in Almacenes | filter:search">
+            <td> {{Almacen.id}} </td>
+            <td> {{Almacen.almacen}} </td>
+            <td> {{Almacen.direccion}} </td>
+            <td>
+              <div >
+                <a href="#/almacen/edit/{{Almacen.id}}" style="color:#f0ad4e;"> <i class="fa fa-pencil" aria-hidden="true"></i> Editar </a> &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#/almacen/view/{{Almacen.id}}" style="color:#31708f;"> <i class="fa fa-eye" aria-hidden="true"></i> Ver </a> &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#/almacen/delete/{{Almacen.id}}" style="color:#c12e2a;"> <i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar</a> </td>
+              </div>
+
+          </tr>
+        </tbody>
+      </table>
+
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>
+<script src="assets/js/plugins/sincaracter.js"></script>

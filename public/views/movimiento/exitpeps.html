@@ -1,0 +1,158 @@
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3><i class="fa fa-external-link-square"></i>  <b>{{title}}  {{ Movimientos.movimiento }} N° {{ numero }}</b></h3>
+    </div>
+    <div class="panel-body">
+      <form ng-submit="saveMovimiento()" id="formIngreso">
+        <input type="hidden" class="form-control"  ng-model="Movimientos.movimiento">
+        <div class="row">
+          <div class="form-group col-md-12">
+            <h4><span class="glyphicon glyphicon-asterisk col-md-12" style="color: #0288D1; padding: 20px; background-color: #B3E5FC;"><b> FECHAS Y TIPOS DE SALIDAS </b></span> </h4>
+            <div class="col-md-3">
+              <label for="" class="control-label">Fecha de Movimiento</label><br>
+              <div class='input-group date'>
+                <input type='text' class="form-control" id='fecha' placeholder="2016-01-01" ng-model="Movimientos.fecha"/>
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+              </div> 
+            </div>
+            <div class="col-md-3">
+              <label for="" class="control-label">Tipo de Salida</label><br>
+              <input type="text" ng-model="Movimientos.id_concepto" class="form-control" placeholder="Escriba el ingreso" list="id_concepto"  required >
+              <datalist id="id_concepto">
+                <option ng-repeat="Concepto in Conceptos"  ng-selected="Movimientos.id_concepto == Concepto.id"  value="{{Concepto.concepto}}">
+              </datalist>
+            </div>
+          </div>
+          <div class=" form-group col-md-12">
+            <h4><span class="glyphicon glyphicon-user col-md-12" style="color: #0288D1; padding: 20px; background-color: #B3E5FC;"><b> FUNCIONARIOS Y DOCUMENTOS</b></span> </h4>
+            <div class="col-md-6">
+              <label for="" class="control-label">Funcionario</label><br>
+              <input type="text" ng-model="Movimientos.id_funcionario" class="form-control" placeholder="Escriba el funcionario" list="id_funcionario" required >
+              <datalist id="id_funcionario">
+                <option ng-repeat="Funcionario in Funcionarios"  ng-selected="Funcionarios.id == Movimientos.id_funcionario"  value="{{Funcionario.nombres}}, {{Funcionario.paterno}}, {{Funcionario.materno}} ">
+              </datalist>
+            </div>
+            <div class="col-md-3">
+              <label for="" class="control-label">Otro Documento</label><br>
+              <input type="text" class="form-control"  placeholder="Carta,.. etc." ng-model="Movimientos.otro_documento">
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+           <h4><span class="glyphicon glyphicon-asterisk col-md-12" style="color: #0288D1; padding: 20px; background-color: #B3E5FC;"><b> APERTURAS PROGRAMÁTICAS </b></span> </h4> </br></br>
+            <div class=" col-md-6">
+              <label></label>
+              <input type="text" id="aperturas" class="form-control" placeholder="Aperturas Programaticas" multiple ng-model="Movimientos.id_apertura" required  />
+            </div> 
+           <script type="text/javascript">
+             $(document).ready(function() {
+               $("#aperturas").tokenInput("index.php/Aperturas/ver/JSON/list");
+             });
+           </script>
+          </div>         
+        <!--
+         <div class="col-lg-6">
+           <label for="" class="col-lg-6 control-label">Clasificdores Presupuestarios</label>
+           <input type="text" id="clasificadores" class="form-control" placeholder="clasificadores Presupuestarios" multiple ng-model="Movimientos.id_clasificador" required  />
+           <script type="text/javascript">
+             $(document).ready(function() {
+               $("#clasificadores").tokenInput("index.php/Clasificadores/ver/JSON/list");
+             });
+           </script>
+         </div>
+       -->
+        </div>
+        <div class="row"><div class="col-md-12">&nbsp;</div></div>
+          <table class="one">
+            <thead>
+              <tr>
+                <th width="5%">Nro.</th> 
+                <th width="10%">Codigo</th>
+                <th width="35%">Articulo</th>
+                <th width="10%">Unidad</th>
+                <th width="20%">Cantidad</th>  
+                <th width="20%"> Accion </th>  
+              </tr>
+              <tr>
+                <td></td>
+                <td colspan="3">
+                 <div>
+                     <input type="text" id="articulo" ng-change="cargaBienes()"  ng-model="articulo" class="form-control" placeholder="Buscar bienes" >
+                     <ul style="background-color: white; border:solid 1px #bbbbbb; list-style-type: none;" class="bienes">
+                         <li ng-repeat="bien in bienes | filter:articulo">
+                            <a a ng-click="cambiaBien(bien.name, bien.code, bien.medida, bien.clasificadorCode, bien.almacenCode, bien.bienCode, bien.id, bien.costo, bien.cantidad)">
+                               <div class="row">
+                                 <div class="col-md-6"> <b> {{ bien.name }} </b> </div>
+                                 <div class="col-md-2"> {{ bien.medida }} </div>
+                                 <div class="col-md-2"> {{ bien.cantidad }} Uni. </div>
+                                 <div class="col-md-2"> {{ bien.costo }} Bs </div>
+                               </div>
+                             </a>
+                         </li>
+                    </ul>
+                 </div>
+                </td>
+                <td>
+                  <input type="text" ng-model="cantidad" class="form-control" >
+                  <input type="hidden" ng-model="idarticulo" >
+                  <input type="hidden" ng-model="medida" >
+                </td>
+                <td><button type="button" ng-click="agregarArticulo()" class="btn btn-info"><i class="fa fa-plus-circle fa-2"> Insertar Articulo</i></button> </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="Articulo in Articulos">
+                <td>{{$index+1}}</td>
+                <td colspan="3"> 
+                  <div class="row">
+                   <div class="col-md-8"> <b>{{Articulo.codigoVer}} {{Articulo.articulo}}</b> </div>
+                   <div class="col-md-2"> {{Articulo.medida}} </div>
+                   <div class="col-md-2"> {{Articulo.costo}} Bs </div>
+              
+                  </div>
+                </td>
+                <td>{{Articulo.cantidad}}</td>
+
+                <td> Total: {{Articulo.total}} &nbsp;&nbsp;&nbsp; <a style="color:#ff404b;" ng-click="eliminarBien(Articulo.indice)"><i class="fa fa-trash-o" ></i> Eliminar</a> </td>
+                
+              </tr>
+            </tbody>
+          </table>
+        <div class="form-group col-md-12">
+          <div class="col-md-12">
+            <h4><span class="glyphicon glyphicon-asterisk col-md-12" style="color: #0288D1; padding: 20px; background-color: #B3E5FC;"><b> GLOSA / MOTIVO</b></span></h4>
+           <textarea class="form-control" ows="2" cols="100" class="form-control" ng-model="Movimientos.glosa_salida"  required ></textarea>
+          </div>
+        </div>
+        <div class="rows">
+          <div class="col-md-3">
+            <button type="submit" name="button" class="{{accion}}" ng-disabled="botonActivar == false">
+              <i class="fa fa-plus-circle" aria-hidden="true"></i> {{button}}
+            </button>
+          </div>
+          <div class="col-md-3">
+            <a href="#/movimiento" class="btn btn-default"> <i class="fa fa-times-circle" aria-hidden="true"></i> Cancelar</a>
+          </div>
+          <div class="col-md-6">
+            <div class="{{panel}}" role="alert"> <strong>{{msj}}</strong> </div>
+          </div>
+        </div>
+      </form>
+
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>
+<!-- DateTime Picker -->
+<script src="assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+<script src="assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.es.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $.fn.datetimepicker.defaults.language = 'es';
+  });
+</script>
+<script type="text/javascript">
+  $(function () {
+    $('#fecha').datetimepicker({ format: 'YYYY-MM-DD'});
+  });
+</script>

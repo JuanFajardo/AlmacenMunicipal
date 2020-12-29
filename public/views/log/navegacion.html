@@ -1,0 +1,37 @@
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3><i class="fa fa-globe"></i>  <b>{{title}}</b></h3>
+    </div>
+    <div class="panel-body">
+
+      <a href="index.php/LogNavegaciones/Codigo4060"> <button type="button" class="btn btn-primary"> <i class="fa fa-file-excel-o fa-2x" aria-hidden="true"></i> <b>EXPORTAR</b> </button> </a>
+          </br>
+          </br>
+       <table class="one" datatable="ng" dt-options="vm.dtOptions" width="100%">
+        <thead>
+          <tr>
+            <th width="5%">Nro.</th>
+            <th width="30%">LINK</th>
+            <th width="10%">ACCION</th>
+            <th width="10%">IP</th>
+            <th width="5%">IP</th>
+            <th width="30%"> NAVEGADOR </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="LogNavegacion in LogNavegaciones " >
+            <td> {{$index + 1}} </td>
+            <td> {{LogNavegacion.direccion}}  </td>
+            <td> {{LogNavegacion.accion}}     </td>
+            <td> {{LogNavegacion.usuario}}    </td>
+            <td> {{LogNavegacion.ip}}         </td>
+            <td> {{LogNavegacion.navegador}}  </td>
+
+
+          </tr>
+        </tbody>
+      </table>
+
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>

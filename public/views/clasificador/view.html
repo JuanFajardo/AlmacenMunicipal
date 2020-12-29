@@ -1,0 +1,32 @@
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3><i class="fa fa-sitemap"></i> <b>{{title}}</b></h3>
+    </div>
+    <div class="panel-body">
+
+      <form autocomplete="off" class="form-horizontal" role="form" >
+        <div class="form-group">
+          <label for="" class="col-lg-2 control-label">Codigo del Clasificador</label>
+          <div class="col-lg-2">
+            <input type="text" class="form-control"  placeholder="Codigo Clasificador Ej.01" ng-model="Clasificadores.codigo" autofocus>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="" class="col-lg-2 control-label">Clasificador</label>
+          <div class="col-lg-8">
+            <input type="text" class="form-control"  placeholder="Clasificador" ng-model="Clasificadores.clasificador">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="" class="col-lg-2 control-label">Descripcion del Clasificador</label>
+          <div class="col-lg-8">
+          <textarea class="form-control" ng-model="Clasificadores.descripcion"  rows="3" cols="100" ></textarea>
+          </div>
+        </div>
+
+        <a href="#/clasificador/" class="btn btn-info"> <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Atras</a>
+      </form>
+
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+<!-- DateTime Picker  -->
+  <link rel="stylesheet" href="assets/css/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css" />
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3><i class="fa fa-{{icono}}"></i>  <b>{{title}}</b></h3>
+    </div>
+    <div class="panel-body">
+
+      <form autocomplete="off" ng-submit="saveCambios()">
+        <div class="form-group">
+          <div class="col-md-3">
+            <label>Fecha</label>
+            <div class='input-group date'>
+              <input type='text' class="form-control" id='fecha' ng-model="Cambios.fecha" />
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label>Compra de Dolar</label>
+            <input type="text" class="form-control"  placeholder="Compra de Dolar" ng-model="Cambios.compra">
+          </div>
+          <div class="col-md-3">
+            <label>Venta de Dolar</label>
+            <input type="text" class="form-control"  placeholder="Venta de Dolar" ng-model="Cambios.venta">
+          </div>
+          <div class="col-md-3">
+            <label>UFV's</label>
+            <input type="text" id="numero" class="form-control"  placeholder="UFV" ng-model="Cambios.ufv"> </br>
+          </div>
+          <input placeholder="NO" type="hidden" class="form-control" ng-model="Cambios.automatico" value="NO"> </br>
+        </div>
+        <div class="rows">
+          <div class="col-md-2">
+            <button type="submit" name="button" class="{{accion}}">
+              <i class="{{botonIcono}}" aria-hidden="true"></i> {{button}}
+            </button>
+          </div>
+          <div class="col-md-2">
+            <a href="#/cambio" class="btn btn-info"> <i class="fa fa-times-circle" aria-hidden="true"></i> Cancelar</a>
+          </div>
+          <div class="col-md-6">
+            <div class="{{panel}}" role="alert"> <strong>{{msj}}</strong> </div>
+          </div>
+        </div>
+      </form>
+
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>
+
+<!-- DateTime Picker -->
+<script src="assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+<script src="assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.es.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+    $.fn.datetimepicker.defaults.language = 'es';
+    });
+      $(function () {
+       $('#fecha').datetimepicker({ format: 'YYYY-MM-DD'});
+    });
+  </script>

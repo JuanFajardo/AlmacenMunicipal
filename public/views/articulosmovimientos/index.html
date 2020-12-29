@@ -1,0 +1,66 @@
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3><i class="fa fa-shopping-cart"></i>  <b>{{title}}</b></h3>
+    </div>
+    <div class="panel-body">
+      <!--<form action="index.php/Reporte/deshuso" method="get">
+          <div class="row">
+            <div class="col-md-3">
+              <label for="">Gestiones</label>
+              <select class="form-control" name="gestion" ng-model="gestion" required >
+                <option ng-repeat="Gestion in Gestiones" value="{{Gestion.id}}"> {{Gestion.gestion}}</option>
+              </select>
+            </div>
+
+            <div class="col-md-4">
+              <label for="">Almacenes</label>
+              <select class="form-control" name="almacen" ng-model="almacen" required >
+                <option ng-repeat="Almacen in Almacenes" value="{{Almacen.id}}"> {{Almacen.almacen}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2" style="padding-top:15px;">
+              <button type="submit" name="button" id="button" class="btn btn-info" >
+                <i class="fa fa-file-pdf-o"></i> Generar Reporte de Catalogo de Productos en Desuso
+              </button>
+            </div>
+          </div>
+      </form>-->
+
+      <div class="row"><div class="col-md-12">&nbsp;</div></div>
+      <div class="rows">
+        <div class="col-md-12">
+          <table class="one class" id="datos" width="100%" datatable="ng" dt-options="vm.dtOptions">
+            <thead>
+              <tr>
+                <th width="5%"  style="text-align:left;"> Nro. </th>
+                <th width="5%"  style="text-align:left;"> Fecha </th>
+                <th width="30%" style="text-align:left;"> Articulo </th>
+                <th width="30%" style="text-align:left;"> Observacion </th>
+                <th width="5%"> Costo</th>
+                <th width="5%"> Cantidad </th>
+                <th width="10%"> Total </th>
+                <th width="5%"> Acciones </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="ArticulosMovimiento in ArticulosMovimientos | filter:search">
+                <td> {{$index + 1}} </td>
+                <td> {{ArticulosMovimiento.created_at}} </td>
+                <td> {{ArticulosMovimiento.bien}} </td>
+                <td> {{ArticulosMovimiento.observacion}} </td>
+                <td> {{ArticulosMovimiento.costo}}</td>
+                <td> {{ArticulosMovimiento.cantidad}}</td>
+                <td> {{ArticulosMovimiento.total}} </td>
+                <td> <a href="#/catalogo/edit/{{ArticulosMovimiento.id}}" style="color:#f0ad4e;"> <i class="fa fa-pencil" aria-hidden="true"></i> Observar </a> </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div id="splineArea-chart" style="height:280px;"></div>
+
+</div>
+</div>

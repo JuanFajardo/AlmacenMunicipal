@@ -1,0 +1,223 @@
+<!-- DateTime Picker  -->
+<link rel="stylesheet" href="assets/css/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css" />
+
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <i class="fa fa-comment-o"></i>  <b>{{title}}  {{ Movimientos.movimiento }} N° {{ numero }}</b>
+    </div>
+    <div class="panel-body">
+
+      <form ng-submit="saveMovimiento()">
+
+
+        <input type="hidden" class="form-control"  ng-model="Movimientos.movimiento">
+
+        <div class="row">
+          <div class="col-md-4">
+            <label for="" class="control-label">Fecha de Movimiento</label><br>
+            <div class='input-group date' id='fecha'>
+              <input type='text' class="form-control" placeholder="Fecha" ng-model="Funcionarios.fech_nacimiento" />
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
+            <!-- DateTime Picker -->
+            <script src="assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+            <script src="assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.es.js"></script>
+            <script type="text/javascript">
+                  $(document).ready(function(){
+                  $.fn.datetimepicker.defaults.language = 'es';
+                  });
+            </script>
+            <script type="text/javascript">
+
+             $(function () {
+                $('#fecha').datetimepicker({ format: 'YYYY-MM-DD'});
+            });
+            </script>
+          </div>
+          <div class="col-md-4">
+            <label for="" class="control-label">RUPE</label><br>
+            <input type="text" class="form-control"  ng-model="Movimientos.rupe">
+          </div>
+          <div class="col-md-4">
+            <label for="" class="control-label">Hoja de Ruta</label><br>
+            <input type="text" class="form-control"  ng-model="Movimientos.hoja_ruta">
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-4">
+            <label for="" class="control-label">Codigo de Pedido</label><br>
+            <input type="text" class="form-control"  ng-model="Movimientos.codigo_pedido" value="automatico">
+          </div>
+          <div class="col-md-4">
+            <label for="" class="control-label">Orden de Compra</label><br>
+            <input type="text" class="form-control"  ng-model="Movimientos.orden_compra">
+          </div>
+          <div class="col-md-4">
+            <label for="" class="control-label">Glosa de Compra</label><br>
+            <textarea class="form-control" rows="1" cols="10" ng-model="Movimientos.glosa_entrada"></textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <label for="" class="control-label">Tipo Factura</label><br>
+            <input type="text" class="form-control"  placeholder="Normal"   ng-model="Movimientos.tipo_factura">
+          </div>
+          <div class="col-md-3">
+            <label for="" class="control-label">Numero Factura</label><br>
+            <input type="text" class="form-control"  placeholder="001, 002"   ng-model="Movimientos.numero_factura">
+          </div>
+          <div class="col-md-3">
+            <label for="" class="control-label">Monto Total</label><br>
+            <input type="text" class="form-control"  placeholder="500"   ng-model="Movimientos.total_factura">
+          </div>
+          <div class="col-md-3">
+            <label for="" class="control-label">Otro Documento</label><br>
+            <input type="text" class="form-control"  placeholder="Carta,.. etc."   ng-model="Movimientos.otro_documento">
+          </div>
+        </div>
+
+
+
+        <div class="row">
+          <div class="col-md-4">
+            <label for="" class="control-label">Tipo de Ingreso</label><br>
+            <input type="text" ng-model="Movimientos.id_concepto" class="form-control" placeholder="Escriba el ingreso" list="id_concepto">
+            <datalist id="id_concepto">
+              <option ng-repeat="Concepto in Conceptos"  ng-selected="Movimientos.id_concepto == Concepto.id"  value="{{Concepto.concepto}}">
+            </datalist>
+            <!--
+            <select class="form-control" ng-model="Movimientos.id_concepto">
+                <option ng-repeat="Concepto in Conceptos"  ng-selected="Movimientos.id_concepto == Concepto.id"  value="{{Concepto.id}}"> {{Concepto.concepto}} </option>
+            </select>
+            -->
+          </div>
+          <div class="col-md-4">
+            <label for="" class="control-label">Provedor</label><br>
+            <input type="text" ng-model="Movimientos.id_proveedor" class="form-control" placeholder="Escriba el proveedor" list="id_proveedor">
+            <datalist id="id_proveedor">
+              <option ng-repeat="Proveedor in Proveedores"  ng-selected="Movimientos.id_proveedor == Proveedor.id"  value="{{Proveedor.proveedor}}">
+            </datalist>
+            <!--
+            <select class="form-control" ng-model="Movimientos.id_proveedor">
+                <option ng-repeat="Proveedor in Proveedores"  ng-selected="Movimientos.id_proveedor == Proveedor.id"  value="{{Proveedor.id}}"> {{Proveedor.proveedor}} </option>
+            </select>
+          -->
+          </div>
+          <div class="col-md-4">
+            <label for="" class="control-label">Funcionario</label><br>
+            <input type="text" ng-model="Movimientos.id_funcionario" class="form-control" placeholder="Escriba el funcionario" list="id_funcionario">
+            <datalist id="id_funcionario">
+              <option ng-repeat="Funcionario in Funcionarios"  ng-selected="Funcionarios.id == Movimientos.id_funcionario"  value="{{Funcionario.nombres}}, {{Funcionario.paterno}}, {{Funcionario.materno}} ">
+            </datalist>
+            <!--
+            <select class="form-control" ng-model="Movimientos.id_funcionario">
+                <option ng-repeat="Funcionario in Funcionarios"  ng-selected="Funcionarios.id_estructura == Estructura.id"  value="{{Funcionario.id}}"> {{Funcionario.nombres}} {{Funcionario.paterno}} {{Funcionario.materno}} </option>
+            </select>
+          -->
+          </div>
+
+        </div>
+
+
+
+        <div class="form-group">
+         <label for="" class="col-lg-6 control-label">Apertura Programatica</label>
+         <label for="" class="col-lg-6 control-label">Clasificdores Presupuestarios</label>
+        </div>
+
+        <div class="form-group"  style="margin-bottom:20px;">
+         <div class="col-lg-6">
+           <input type="text" id="aperturas" class="form-control" placeholder="Aperturas Programaticas" multiple ng-model="Movimientos.id_apertura" />
+           <script type="text/javascript">
+             $(document).ready(function() {
+               $("#aperturas").tokenInput("index.php/Aperturas/ver/JSON/list");
+             });
+           </script>
+         </div>
+         <div class="col-lg-6">
+           <input type="text" id="clasificadores" class="form-control" placeholder="clasificadores Presupuestarios" multiple ng-model="Movimientos.id_clasificador" />
+           <script type="text/javascript">
+             $(document).ready(function() {
+               $("#clasificadores").tokenInput("index.php/Clasificadores/ver/JSON/list");
+             });
+           </script>
+         </div>
+       </div>
+
+       <table class="table table-bordered table-striped">
+         <thead>
+           <tr> <th width="50%">Articulo</th> <th width="10%">Cantidad</th>  <th width="10%">Precio</th> <th width="30%"> Accion </th>  </tr>
+           <tr>
+             <td>
+               <div >
+
+                   <input type="text" id="articulo" ng-change="cargaBienes()"  ng-model="articulo" class="form-control" placeholder="Buscar bienes" >
+                   <ul style="background-color: white; border:solid 1px #bbbbbb; list-style-type: none;" class="bienes">
+                       <li ng-repeat="bien in bienes | filter:articulo">
+                           <a ng-click="cambiaBien(bien.name, bien.code, bien.medida)" >
+                             <div class="row">
+                               <div class="col-md-6"> <b> {{ bien.name }} </b> </div>
+                               <div class="col-md-6"> {{ bien.medida }} </div>
+                             </div>
+                           </a>
+                       </li>
+                  </ul>
+
+
+               </div>
+             </td>
+             <td><input type="text" ng-model="cantidad" class="form-control"> <input type="hidden" ng-model="idarticulo" > <input type="hidden" ng-model="medida" >    </td>
+             <td><input type="text" ng-model="precio" class="form-control"> </td>
+             <td><button type="button" ng-click="agregarArticulo()" class="btn btn-info"><i class="fa fa-plus-circle fa-2"> Insertar Articulo</i></button> </td>
+           </tr>
+         </thead>
+         <tbody>
+           <tr ng-repeat="Articulo in Articulos">
+             <td> <div class="row">
+                   <div class="col-md-8"> <b>{{Articulo.articulo}}</b> </div>
+                   <div class="col-md-4"> {{Articulo.medida}} </div>
+                 </div>
+             </td>
+             <td>{{Articulo.cantidad}}</td>
+             <td>{{Articulo.precio}}</td>
+             <td> {{Articulo.falta}} Monto que sobra &nbsp;&nbsp;&nbsp; <a style="color:#ff404b;" ng-click="eliminarBien(Articulo.indice)"><i class="fa fa-trash-o" ></i> Eliminar</a> </td>
+           </tr>
+         </tbody>
+       </table>
+
+        <div class="rows">
+          <div class="col-md-3">
+            <button type="submit" name="button" class="{{accion}}">
+              <i class="fa fa-plus-circle" aria-hidden="true"></i> {{button}}
+            </button>
+          </div>
+          <div class="col-md-3">
+            <a href="#/movimiento" class="btn btn-default"> <i class="fa fa-times-circle" aria-hidden="true"></i> Cancelar</a>
+          </div>
+          <div class="col-md-6">
+            <div class="{{panel}}" role="alert"> <strong>{{msj}}</strong> </div>
+          </div>
+        </div>
+      </form>
+
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>
+<!-- DateTime Picker -->
+<script src="assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
+<script src="assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.es.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $.fn.datetimepicker.defaults.language = 'es';
+  });
+</script>
+<script type="text/javascript">
+  $(function () {
+    $('#fecha').datetimepicker({ format: 'YYYY-MM-DD'});
+  });
+</script>

@@ -1,0 +1,36 @@
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3><i class="fa fa-institution"></i> {{title}}</h3>
+    </div>
+    <div class="panel-body">
+          <a href="#/estructura/new"> <button type="button" class="btn btn-primary">AGREGAR <i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i> </button> </a>
+          </br>
+          </br>
+       <table class="one" datatable="ng" dt-options="vm.dtOptions" width="100%">
+        <thead>
+            <tr>
+              <th width="5%"> Nro. </th> 
+              <!--<th width="15%"> Código </th> -->
+              <th width="60%"> Unidad </th> 
+              <th width="30%"> Acciones </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="Estructura in Estructuras | filter:search">
+              <td> {{$index + 1}} </td> 
+              <!--td> {{Estructura.codigoEstructura}} </td>-->
+              <td> {{Estructura.estructura}} </td>
+              <td>
+                <div>
+                  <a href="#/estructura/edit/{{Estructura.id}}" style="color:#f0ad4e;"> <i class="fa fa-pencil" aria-hidden="true"></i> Editar </a> &nbsp;&nbsp;&nbsp;&nbsp;
+                  <a href="#/estructura/view/{{Estructura.id}}" style="color:#31708f;"> <i class="fa fa-eye" aria-hidden="true"></i> Ver </a>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <a href="#/estructura/delete/{{Estructura.id}}" style="color:#c12e2a;"> <i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar</a> 
+                </div>
+                </td>  
+            </tr>
+          </tbody> 
+        </table>
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>

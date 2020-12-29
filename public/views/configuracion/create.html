@@ -1,0 +1,76 @@
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3><i class="fa fa-cogs"></i>  <b>{{title}}</b></h3>
+    </div>
+    <div class="panel-body">
+
+      <form autocomplete="off" ng-submit="saveConfiguracion()">
+        <div class="form-group col-lg-1">
+          
+        </div>
+        <div class="form-group col-lg-3" >
+          <img src="assets/images/entidad.jpg" class="img-circle" style="height: 250px; width: 200px;">
+        </div>
+        <div class="form-group col-lg-8">
+          <label class="col-lg-2 control-label" > Institucion</label>
+          <div class="col-lg-6">
+            <input type="text" id="as" class="form-control"  ng-model="Configuraciones.entidad" disabled>
+          </div>
+        </div>
+        <div class="form-group col-lg-8">
+          <label class="col-lg-2 control-label">Direccion</label> 
+          <div class="col-lg-4">
+            <input type="text" class="form-control" id="ass" disabled ng-model="Configuraciones.direccion">
+          </div>
+        </div>
+        <div class="form-group col-lg-8">
+          <label class="col-lg-2 control-label">Telefono</label>
+          <div class="col-lg-4">  
+            <input type="text" class="form-control" id="asss" disabled ng-model="Configuraciones.telefono">
+          </div>
+        </div>
+        <div class="form-group col-lg-8">
+          <label class="col-lg-2 control-label">RUC</label>  
+          <div class="col-lg-4">
+            <input type="text" class="form-control" id="assss" disabled ng-model="Configuraciones.ruc">
+          </div>
+        </div>
+        <div class="form-group col-lg-8">
+          <label class="col-lg-2 control-label">NIT</label> 
+          <div class="col-lg-4">
+            <input type="text" class="form-control" id="asssss" disabled  ng-model="Configuraciones.factura">
+          </div>
+        </div>
+        <div class="form-group col-lg-8">
+          <div class="col-lg-4">
+            <h5>Habilitar Edicion <input class="form-control" type="checkbox" id="yourBox" /></h5>
+            
+          </div>
+          <script type="text/javascript">
+            document.getElementById('yourBox').onchange = function() {
+              document.getElementById('as').disabled = !this.checked;
+              document.getElementById('ass').disabled = !this.checked;
+              document.getElementById('asss').disabled = !this.checked;
+              document.getElementById('assss').disabled = !this.checked;
+              document.getElementById('asssss').disabled = !this.checked;
+            };
+          </script>
+        </div>
+        <div class="rows">
+          <div class="col-md-2">
+            <button type="submit" name="button" class="{{accion}}">
+              <i class="fa fa-plus-circle" aria-hidden="true"></i> {{button}}
+            </button>
+          </div>
+          <div class="col-md-2">
+            <a href="#/" class="btn btn-info"> <i class="fa fa-times-circle" aria-hidden="true"></i> Cancelar</a>
+          </div>
+          <div class="col-md-6">
+            <div class="{{panel}}" role="alert"> <strong>{{msj}}</strong> </div>
+          </div>
+        </div>
+      </form>
+
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>

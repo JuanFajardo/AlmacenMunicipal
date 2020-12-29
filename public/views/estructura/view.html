@@ -1,0 +1,20 @@
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3><i class="fa fa-institution"></i> {{title}}</h3> 
+    </div>
+    <div class="panel-body">
+
+      <form autocomplete="off" class="form-horizontal" role="form" ng-submit="saveEstructura()">
+        
+        <div class="form-group">
+          <label for="ejemplo_email_3" class="col-lg-2 control-label">Cargo</label>
+          <div class="col-lg-6">
+            <input type="text" class="form-control" ng-model="Estructuras.estructura">
+          </div>
+        </div>
+        <a href="#/estructura/" class="btn btn-info"> <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Atras</a>
+      </form>
+
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>

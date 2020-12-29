@@ -1,0 +1,44 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading clean">
+      <h3><i class="fa fa-tty"></i>  <b>{{title}}</b></h3>
+    </div>
+    <div class="panel-body">
+
+     <a href="#/proveedor/new"> <button type="button" class="btn btn-primary">AGREGAR <i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i> </button> </a>
+          </br>
+          </br>
+        <div class="col-sm-12 table-responsive">
+          <table class="one" datatable="ng" dt-options="vm.dtOptions" width="100%">
+            <thead>
+              <tr>
+                <th width="3%">Nro.</th>
+                <th width="20%">Proveedor</th> 
+                <th width="10%">NIT</th> 
+                <th width="20%">Responsable</th> 
+                <th width="5%">Telefono</th> 
+                <th width="5%">Ciudad</th> 
+                <th width="30%">Acciones</th>
+              </tr>
+            </thead>           
+            <tbody>            
+              <tr ng-repeat="Proveedor in Proveedores | filter:search">                
+                <td> {{$index + 1}} </td> 
+                <td style="text-align: left;"> {{Proveedor.proveedor}} </td>
+                <td style="text-align: left;"> {{Proveedor.nit}} </td>
+                <td style="text-align: left;"> {{Proveedor.responsable}} </td>
+                <td style="text-align: left;"> {{Proveedor.telefono}} </td>
+                <td style="text-align: left;"> {{Proveedor.ciudad}} </td>
+                <td style="text-align: left;">
+                    <a href="#/proveedor/edit/{{Proveedor.id}}" style="color:#f0ad4e;"> <i class="fa fa-pencil" aria-hidden="true"></i> Editar </a>
+                    <a href="#/proveedor/view/{{Proveedor.id}}" style="color:#31708f;"> <i class="fa fa-eye" aria-hidden="true"></i> Ver </a>
+                    <a href="#/proveedor/delete/{{Proveedor.id}}" style="color:#c12e2a;"> <i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar</a> 
+                </td>
+              </tr>
+            </tbody>             
+          </table>
+        </div>
+      </div>
+      <div id="splineArea-chart" style="height:280px;"></div>
+    </div>
+</div>
