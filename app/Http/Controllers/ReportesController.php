@@ -250,6 +250,8 @@ class ReportesController extends Controller
                                                                           ->groupBy('clasificadores.id')
                                                                           ->orderBy('clasificadores.codigo')
                                                                           ->get();
+
+
             $datos = \DB::table('articulos_movimientos')->join('users',             'articulos_movimientos.id_usuario',      '=', 'users.id')
                                                      ->join('movimientos',          'articulos_movimientos.id_movimiento',   '=', 'movimientos.id')
                                                      ->join('proveedores',          'movimientos.id_proveedor',              '=', 'proveedores.id')
@@ -263,20 +265,58 @@ class ReportesController extends Controller
                                                      ->where('articulos_movimientos.id_movimiento',                          '=', $id)
                                                      ->where('articulos_movimientos.movimiento',                             '=', $movimiento->movimiento)
                                                      ->where('articulos_movimientos.id_gestion',                             '=', Gestiones::gestion())
-                                                     ->select('articulos_movimientos.id as Nely','movimientos.*',
+                                                     ->select('articulos_movimientos.id as Nely','movimientos.*','articulos_movimientos.boleta',
                                                       'conceptos.concepto',
                                                       'proveedores.*',
                                                       'articulos_movimientos.cantidad', 'articulos_movimientos.costo', 'articulos_movimientos.total',  'articulos_movimientos.id_bien',
                                                       'unidades.unidad',
                                                       'bienes.*', 'unidades.unidad',
                                                       'users.nombreCompleto',
-                                                      'aperturas.apertura',  'aperturas.codigo as aperturacodigo',
+                                                      'aperturas.apertura',  'aperturas.codigo as aperturacodigo', 'aperturas.*',
                                                       'clasificadores.clasificador', 'clasificadores.codigo as clasificadorcodigo',
                                                       'funcionarios.*',
                                                       'estructuras.*')
                                                      ->orderBy('clasificadores.codigo' , 'asc')
                                                      ->orderBy('bienes.codigo' , 'asc')
                                                      ->get();
+
+                    if( $movimiento->glosa_salida == "COMBUSTIBLE"){
+                      $datos = \DB::table('articulos_movimientos')->join('users',             'articulos_movimientos.id_usuario',      '=', 'users.id')
+                                                                  ->join('movimientos',          'articulos_movimientos.id_movimiento',   '=', 'movimientos.id')
+                                                                  ->join('proveedores',          'movimientos.id_proveedor',              '=', 'proveedores.id')
+                                                                  ->join('conceptos',            'movimientos.id_concepto',               '=', 'conceptos.id')
+                                                                  ->join('clasificadores',       'articulos_movimientos.id_clasificador', '=', 'clasificadores.id')
+                                                                  ->join('aperturas',            'articulos_movimientos.id_apertura',     '=', 'aperturas.id')
+                                                                  ->join('bienes',               'articulos_movimientos.id_bien',         '=', 'bienes.id')
+                                                                  ->join('unidades',             'bienes.id_unidad',                      '=', 'unidades.id')
+                                                                  ->join('funcionarios',         'articulos_movimientos.id_funcionario',  '=', 'funcionarios.id')
+                                                                  ->join('autos',                 'articulos_movimientos.id_auto',        '=', 'autos.id')
+                                                                  ->join('estructuras',          'funcionarios.id_estructura',            '=', 'estructuras.id')
+                                                                  ->where('articulos_movimientos.id_movimiento',                          '=', $id)
+                                                                  ->where('articulos_movimientos.movimiento',                             '=', $movimiento->movimiento)
+                                                                  ->where('articulos_movimientos.id_gestion',                             '=', Gestiones::gestion())
+                                                                  ->select('articulos_movimientos.id as Nely','movimientos.*','articulos_movimientos.boleta',
+                                                                  'funcionarios.*',
+                                                                  'autos.*',
+                                                                  'conceptos.concepto',
+                                                                  'proveedores.*',
+                                                                  'articulos_movimientos.cantidad', 'articulos_movimientos.costo', 'articulos_movimientos.total',  'articulos_movimientos.id_bien',
+                                                                  'unidades.unidad',
+
+                                                                  'bienes.*', 'unidades.unidad',
+                                                                  'users.nombreCompleto',
+                                                                  'aperturas.apertura',  'aperturas.codigo as aperturacodigo', 'aperturas.*',
+                                                                  'clasificadores.clasificador', 'clasificadores.codigo as clasificadorcodigo',
+
+                                                                  'estructuras.*')
+                                                                  ->orderBy('clasificadores.codigo' , 'asc')
+                                                                  ->orderBy('bienes.codigo' , 'asc')
+                                                                  ->get();
+                                                            $url = 'reporte.salidaCombustible';
+                                                     }
+
+
+
           }elseif ($movimiento->movimiento == 'INGRESO' || $movimiento->movimiento == 'INGRESO STOCK' ){
             $url = 'reporte.ingreso';
             $aperturasMovimientos = \DB::table('articulos_movimientos')->join('movimientos',          'articulos_movimientos.id_movimiento',   '=', 'movimientos.id')
@@ -307,14 +347,14 @@ class ReportesController extends Controller
                                                      ->where('articulos_movimientos.movimiento',                              '=', $movimiento->movimiento)
                                                      ->where('articulos_movimientos.id_movimiento',                           '=', $id)
                                                      ->where('articulos_movimientos.id_gestion',                              '=', Gestiones::gestion())
-                                                     ->select('articulos_movimientos.id as Nely','movimientos.*',
+                                                     ->select('articulos_movimientos.id as Nely','movimientos.*','articulos_movimientos.boleta',
                                                       'conceptos.concepto',
                                                       'proveedores.*',
                                                       'articulos_movimientos.cantidad','articulos_movimientos.cantidad_actual', 'articulos_movimientos.costo', 'articulos_movimientos.total',  'articulos_movimientos.id_bien',
                                                       'unidades.unidad',
                                                       'bienes.*',
                                                       'users.nombreCompleto',
-                                                      'aperturas.apertura',  'aperturas.codigo as aperturacodigo',
+                                                      'aperturas.apertura',  'aperturas.codigo as aperturacodigo', 'aperturas.*',
                                                       'clasificadores.clasificador', 'clasificadores.codigo as clasificadorcodigo')
                                                      ->orderBy('clasificadores.codigo' , 'asc')
                                                      ->orderBy('bienes.codigo' , 'asc')
@@ -353,20 +393,19 @@ class ReportesController extends Controller
                                                      ->where('articulos_movimientos.movimiento',                            '=','INGRESO')
                                                      ->orWhere('articulos_movimientos.movimiento',                          '=','INGRESO STOCK')
                                                      ->where('articulos_movimientos.id_gestion',                            '=', Gestiones::gestion())
-                                                     ->select('articulos_movimientos.id as Nely','movimientos.*',
+                                                     ->select('articulos_movimientos.id as Nely','movimientos.*', 'articulos_movimientos.boleta',
                                                       'conceptos.concepto',
                                                       'proveedores.*',
                                                       'articulos_movimientos.cantidad', 'articulos_movimientos.costo', 'articulos_movimientos.total',  'articulos_movimientos.id_bien',
                                                       'unidades.unidad',
                                                       'bienes.*', 'unidades.unidad',
                                                       'users.nombreCompleto',
-                                                      'aperturas.apertura',  'aperturas.codigo as aperturacodigo',
+                                                      'aperturas.apertura',  'aperturas.codigo as aperturacodigo', 'aperturas.*',
                                                       'clasificadores.clasificador', 'clasificadores.codigo as clasificadorcodigo')
                                                      /*->orderBy('articulos_movimientos.id')*/
                                                      ->orderBy('clasificadores.codigo' , 'asc')
                                                      ->orderBy('bienes.codigo' , 'asc')
                                                      ->get();
-                                                     return $datos;
         }
 
         $configuracion    = \DB::table('configuraciones')->get(); // \App\Configuraciones::first();
@@ -376,8 +415,8 @@ class ReportesController extends Controller
         $eliminacion = $movimientoDato->eliminacion != '' ?  $movimientoDato->eliminacion : '';
         $name = 'Movimiento'.date('Ymdhis').'.pdf';
 
-        //return Gestiones::gestion();
-        return view($url, compact('datos', 'configuracion', 'movimientoDato','aperturasMovimientos', 'clasificadoresMovimientos', 'funcionarios', 'eliminacion'));
+        //return $datos;
+        //return view($url, compact('datos', 'configuracion', 'movimientoDato','aperturasMovimientos', 'clasificadoresMovimientos', 'funcionarios', 'eliminacion'));
 
         $pdf = \PDF::loadView($url, compact('datos', 'configuracion', 'movimientoDato','aperturasMovimientos', 'clasificadoresMovimientos', 'funcionarios', 'eliminacion') )
         ->setOption('footer-html', asset('pie.php'))
@@ -465,7 +504,7 @@ class ReportesController extends Controller
                                                   'almacenes.*',
                                                   'bienes.bien',
                                                   'unidades.unidad',
-                                                  'aperturas.apertura',  'aperturas.codigo as aperturacodigo',
+                                                  'aperturas.apertura',  'aperturas.codigo as aperturacodigo', 'aperturas.*',
                                                   'clasificadores.clasificador', 'clasificadores.codigo as clasificadorcodigo')
                                                  ->orderBy('funcionarios.id')
                                                  ->orderBy('bienes.bien')
@@ -577,7 +616,7 @@ class ReportesController extends Controller
                                             ->where('articulos_movimientos.created_at',     '<', Carbon::parse($request->fecha_fin) )
                                             ->orWhere('articulos_movimientos.created_at',   '=', Carbon::parse($request->fecha_fin) )
                                             ->where('articulos_movimientos.created_at',     '=', Gestiones::gestion() )
-                                            ->select('aperturas.id', 'aperturas.codigo', 'aperturas.apertura', 'bienes.bien')
+                                            ->select('aperturas.id', 'aperturas.codigo', 'aperturas.apertura',  'aperturas.*', 'bienes.bien')
                                             ->orderBy('articulos_movimientos.id_apertura')
                                             ->groupBy('aperturas.id')
                                             ->orderBy('aperturas.id')
@@ -593,6 +632,9 @@ class ReportesController extends Controller
         }elseif ($request->button == 'pdfInmediato'){
           $link = "reporte.aperturaReporteIn";
         }
+
+        return view($link, compact('datos', 'configuracion',  'aperturas', 'fechaInicio', 'fechaFin', 'idAlmacen','almacen') );
+        
         $pdf = \PDF::loadView($link, compact('datos', 'configuracion',  'aperturas', 'fechaInicio', 'fechaFin', 'idAlmacen','almacen') )
         ->setPaper('letter')->setOrientation('portrait')
         ->setOption('page-width', '216mm')
@@ -625,7 +667,7 @@ class ReportesController extends Controller
                                                       'movimientos.fecha as movimientoFecha', 'movimientos.movimiento as movimientoTipo',
                                                       'conceptos.tipo', 'conceptos.concepto', 'users.name', 'movimientos.nro_moviento',
                                                       'clasificadores.codigo as clasificadorCodigo',
-                                                      'aperturas.codigo as aperturaCodigo',
+                                                      'aperturas.codigo as aperturaCodigo', 'aperturas.*',
                                                       'almacenes.*', 'bienes.*')
                                                     ->orderBy('articulos_movimientos.id_almacen', 'asc')
                                                     ->get();
@@ -662,7 +704,7 @@ class ReportesController extends Controller
                                                     ->select('articulos_movimientos.id', 'articulos_movimientos.*', 'movimientos.fecha as movimientoFecha', 'movimientos.movimiento as movimientoTipo',
                                                       'conceptos.tipo', 'conceptos.concepto', 'users.name', 'movimientos.nro_moviento',
                                                       'clasificadores.codigo as clasificadorCodigo',
-                                                      'aperturas.codigo as aperturaCodigo',
+                                                      'aperturas.codigo as aperturaCodigo', 'aperturas.*',
                                                       'almacenes.*')
                                                     ->orderBy('articulos_movimientos.id_almacen', 'asc')
                                                     ->get();
@@ -720,7 +762,7 @@ class ReportesController extends Controller
                                                  'movimientos.fecha as fechaMovimiento','movimientos.id_almacen','movimientos.nro_moviento',
                                                  'articulos_movimientos.observacion', 'articulos_movimientos.cantidad_actual', 'articulos_movimientos.cantidad', 'articulos_movimientos.costo', 'articulos_movimientos.total',  'articulos_movimientos.id_bien',
                                                  'unidades.unidad', 'bienes.bien',
-                                                 'aperturas.id as idApertura', 'aperturas.apertura',  'aperturas.codigo as codigoApertura ',
+                                                 'aperturas.id as idApertura', 'aperturas.apertura',  'aperturas.codigo as codigoApertura ', 'aperturas.*',
                                                  'clasificadores.clasificador', 'clasificadores.codigo as clasificadorcodigo')
                                                  ->get();
         $configuracion = \DB::table('configuraciones')->first();
@@ -787,7 +829,7 @@ class ReportesController extends Controller
                                                  'movimientos.*', 'movimientos.fecha as fechaMovimiento', 'movimientos.nro_moviento',
                                                  'articulos_movimientos.observacion', 'articulos_movimientos.cantidad', 'articulos_movimientos.cantidad_actual', 'articulos_movimientos.costo', 'articulos_movimientos.total',  'articulos_movimientos.id_bien',
                                                  'conceptos.concepto', 'proveedores.proveedor', 'unidades.unidad','almacenes.almacen','bienes.bien', 'bienes.codigo as codBien',
-                                                 'aperturas.id as idApertura', 'aperturas.apertura',  'aperturas.codigo as codigoApertura',
+                                                 'aperturas.id as idApertura', 'aperturas.apertura',  'aperturas.codigo as codigoApertura', 'aperturas.*',
                                                  'clasificadores.clasificador', 'clasificadores.codigo as clasificadorcodigo')
                                                  ->orderBy('aperturas.id')
                                                  ->orderBy('bienes.bien')
@@ -863,7 +905,7 @@ class ReportesController extends Controller
                                                  'movimientos.*', 'movimientos.fecha as fechaMovimiento',  'movimientos.nro_moviento',
                                                  'articulos_movimientos.observacion', 'articulos_movimientos.cantidad', 'articulos_movimientos.cantidad_actual', 'articulos_movimientos.costo', 'articulos_movimientos.total',  'articulos_movimientos.id_bien', 'articulos_movimientos.*',
                                                  'conceptos.concepto', 'proveedores.proveedor', 'unidades.unidad','almacenes.almacen','bienes.bien', 'bienes.codigo as BienCod',
-                                                 'aperturas.id as idApertura', 'aperturas.apertura',  'aperturas.codigo as codigoApertura',
+                                                 'aperturas.id as idApertura', 'aperturas.apertura',  'aperturas.codigo as codigoApertura', 'aperturas.*',
                                                  'clasificadores.clasificador', 'clasificadores.codigo as clasificadorcodigo', 'unidades.unidad')
                                                  ->orderBy('clasificadores.codigo' , 'asc')
                                                  ->orderBy('bienes.codigo' , 'asc')
@@ -952,7 +994,8 @@ class ReportesController extends Controller
                                                     'movimientos.fecha as movimientoFecha', 'movimientos.movimiento as movimientoTipo', 'movimientos.nro_moviento',
                                                     'conceptos.tipo', 'conceptos.concepto',
                                                     'users.name', 'bienes.bien', 'bienes.codigo as bienCodigo',
-                                                    'almacenes.*','aperturas.codigo as aperturaCodigo','clasificadores.codigo as clasificadorCodigo')
+                                                    'almacenes.*','aperturas.codigo as aperturaCodigo','clasificadores.codigo as clasificadorCodigo', 'aperturas.*'
+                                                    )
                                                     ->orderBy('bienes.bien', 'asc')
                                                     ->orderBy('articulos_movimientos.id_bien', 'asc')
                                                     ->orderBy('articulos_movimientos.movimiento', 'asc')
@@ -975,7 +1018,7 @@ class ReportesController extends Controller
                                                  'movimientos.*', 'movimientos.fecha as fechaMovimiento',  'movimientos.nro_moviento',
                                                  'articulos_movimientos.observacion', 'articulos_movimientos.cantidad', 'articulos_movimientos.cantidad_actual', 'articulos_movimientos.costo', 'articulos_movimientos.total',  'articulos_movimientos.id_bien', 'articulos_movimientos.*',
                                                  'conceptos.concepto', 'proveedores.proveedor', 'unidades.unidad','almacenes.almacen','bienes.bien','bienes.codigo as BienCod',
-                                                 'aperturas.id as idApertura', 'aperturas.apertura',  'aperturas.codigo as codigoApertura',
+                                                 'aperturas.id as idApertura', 'aperturas.apertura',  'aperturas.codigo as codigoApertura', 'aperturas.*',
                                                  'clasificadores.clasificador', 'clasificadores.codigo as clasificadorcodigo','unidades.unidad')
                                                  ->orderBy('aperturas.id')
                                                  ->orderBy('bienes.bien')
@@ -999,8 +1042,8 @@ class ReportesController extends Controller
         $configuracion = \DB::table('configuraciones')->first();
         $almacen = \DB::table('almacenes')->select('almacen')->first();
 
-        return view($link, compact('bienes', 'configuracion', 'fechaInicio', 'fechafinal', 'almacen', 'bett0', 'gestion', 'aperturas', 'datos'));
-        
+        //return view($link, compact('bienes', 'configuracion', 'fechaInicio', 'fechafinal', 'almacen', 'bett0', 'gestion', 'aperturas', 'datos'));
+
         $pdf = \PDF::loadView($link, compact('bienes', 'configuracion', 'fechaInicio', 'fechafinal', 'almacen', 'bett0', 'gestion', 'aperturas', 'datos') )
         ->setPaper('letter')->setOrientation('portrait')
         ->setOption('page-width', '216mm')
@@ -1165,7 +1208,7 @@ class ReportesController extends Controller
                                                         'movimientos.fecha as movimientoFecha', 'movimientos.movimiento as movimientoTipo', 'movimientos.nro_moviento',
                                                         'conceptos.tipo', 'conceptos.concepto',
                                                         'users.name', 'bienes.bien', 'bienes.codigo as bienCodigo',
-                                                        'aperturas.codigo as aperturaCodigo',
+                                                        'aperturas.codigo as aperturaCodigo', 'aperturas.*',
                                                         'clasificadores.codigo as clasificadorCodigo')
                                                         ->orderBy('clasificadores.id')
                                                         ->orderBy('bienes.bien', 'asc')
@@ -1324,7 +1367,7 @@ class ReportesController extends Controller
                                                       'almacenes.*',
                                                       'bienes.bien',
                                                       'unidades.unidad',
-                                                      'aperturas.apertura',  'aperturas.codigo as aperturacodigo',
+                                                      'aperturas.apertura',  'aperturas.codigo as aperturacodigo', 'aperturas.*',
                                                       'clasificadores.clasificador', 'clasificadores.codigo as clasificadorcodigo')
                                                      ->orderBy('estructuras.id')
                                                      ->orderBy('bienes.bien')

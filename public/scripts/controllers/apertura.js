@@ -1,10 +1,12 @@
 'use strict';
 
 angular.module('Almacenes')
-  .controller('IndexAperturaCtrl', function($scope, AperturasResource, $location, $timeout, DTOptionsBuilder, DTColumnBuilder){
+  .controller('IndexAperturaCtrl', function($scope, AperturasResource, AlmacenesResource, $location, $timeout, DTOptionsBuilder, DTColumnBuilder){
     $scope.title = "Aperturas Programaticas";
     $scope.icono = "file-text-o";
     $scope.Aperturas = AperturasResource.query();
+    $scope.Almacenes = AlmacenesResource.query();
+
      $scope.vm = {};
     $scope.vm.dtOptions = DTOptionsBuilder.newOptions()
     .withOption(
@@ -36,14 +38,14 @@ angular.module('Almacenes')
     .withOption('order', [0, 'asc']);
 })
 
-  .controller('CreateAperturaCtrl', function($scope, AperturasResource, $location, $timeout){
+  .controller('CreateAperturaCtrl', function($scope, AperturasResource, AlmacenesResource, $location, $timeout){
     $scope.botonIcono = "fa fa-plus-circle";
     $scope.icono = "file-text-o";
     $scope.title = "Aperturas Programaticas - Nuevo";
     $scope.button = "Guardar";
     $scope.accion = "btn btn-primary";
     $scope.Aperturas={};
-
+    $scope.Almacenes = AlmacenesResource.query();
     $scope.saveApertura = function(){
       AperturasResource.save($scope.Aperturas);
       $scope.panel = "alert alert-info";
@@ -52,6 +54,7 @@ angular.module('Almacenes')
         $location.path('/apertura');
       }, 1000);
     };
+
   })
   .controller('ViewAperturaCtrl', function($scope, AperturasResource, $routeParams){
     $scope.title = "Aperturas Programaticas - Detalles";
@@ -76,12 +79,13 @@ angular.module('Almacenes')
     };
 
   })
-  .controller('EditAperturaCtrl', function($scope, AperturasResource, $location, $timeout, $routeParams){
+  .controller('EditAperturaCtrl', function($scope, AperturasResource, AlmacenesResource, $location, $timeout, $routeParams){
     $scope.title = "Aperturas Programaticas - Editar";
     $scope.botonIcono = "fa fa-pencil";
     $scope.button = "Actualizar";
     $scope.accion = "btn btn-warning";
     $scope.icono = "file-text-o";
+    $scope.Almacenes = AlmacenesResource.query();
     $scope.Aperturas = AperturasResource.get({
       id: $routeParams.id
     });

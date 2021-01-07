@@ -367,7 +367,10 @@ class MovimientosController extends Controller
                                           ->orderBy('aperturas.id')
                                           ->groupBy('aperturas.id')
                                           ->get();
-      return view('movimiento.salirStock', compact('nro_moviento', 'moviento', 'conceptos', 'funcionarios', 'n', 'aperturas'));
+
+      $vista = $request->boton == "Salidas Stock" ? "movimiento.salirStock" : "movimiento.salirCombustible" ;
+
+      return view($vista, compact('nro_moviento', 'moviento', 'conceptos', 'funcionarios', 'n', 'aperturas'));
     }catch(\Exception $err){
       return "<script> alert('Error M0010: No se creo el formulario de Salida Stock \n".$e->getMessage()."'); location.href='".asset('index.php/Movimientos')."'; </script>";
     }
@@ -486,6 +489,144 @@ class MovimientosController extends Controller
             $dato->costo_actual     = $busqueda[0]->costo;
             $dato->total_actual     = ($aux * $busqueda[0]->costo);
             $dato->observacion      = '';
+            $dato->id_movimiento    = $idMovimiento;
+            $dato->id_apertura      = $id_apertura;
+            $dato->id_clasificador  = $clasificador;
+            $dato->id_bien          = $idart;
+            $dato->id_usuario       = \Auth::user()->id;
+            $dato->id_almacen       = \Auth::user()->id_almacen;
+            $dato->eliminacion        = '';
+            $dato->fecha_eliminacion  = '0000-00-00';
+            $dato->id_gestion       = Gestiones::gestion();
+            $dato->save();
+
+            $otro = ArticulosMovimientos::find( $busqueda[0]->id );
+
+            $otro->cantidad = $otro->cantidad - $aux;
+            $otro->save();
+          }while( $cantidad > 0 );
+
+        }
+      }
+      return redirect('Reportes/mostrar/'.$idMovimiento);
+    }catch (Exception $e) {
+      return "<script> alert('Error M0011: Error al guardar dats de Salida Stock".$e->getMessage()."'); location.href='".asset('index.php/Movimientos')."'; </script>";
+    }
+  }
+
+
+  public function salidaCombustibleStore(Request $request){
+    try{
+      $codigo_pedido = \DB::table('movimientos')->where('movimiento', '=', 'SALIDA STOCK')
+                                                ->where('cerrado_gestion', '=', 'NO')
+                                                ->where('id_gestion', '=', Gestiones::gestion())
+                                                ->count();
+      $codigo_pedido = $codigo_pedido + 1;
+      $concepto = explode('|', $request->id_concepto);
+      $id_concepto = Conceptos::find($concepto[0]);
+      $glosa_salida = $request->glosa_salida;
+      $nombreCompleto = explode('|', $request->id_funcionario);
+      $id_funcionario = Funcionarios::find($nombreCompleto[0]);
+      $id_ufv = Cambios::where('fecha', '=', $request->fecha)->max('id');
+
+      $dato = new Movimientos;
+      $fechas = explode('-', $request->fecha);
+      $dato->movimiento         = 'SALIDA STOCK';
+      $dato->nro_moviento       = \Auth::user()->grupo == '2' ? $codigo_pedido : date('Ymd').'/'.$codigo_pedido;
+      $dato->fecha              = $request->fecha;
+      $dato->anio               = $fechas[0];
+      $dato->mes                = $fechas[1];
+      $dato->dia                = $fechas[2];
+      $dato->cerrado_gestion    = 'NO';
+      $dato->codigo_informe     = "";
+      $dato->codigo_pedido      = "";
+      $dato->codigo_tramite     = "";
+      $dato->auxiliar           = \Auth::user()->grupo == '2' ? 'SI' : 'NO';;
+      $dato->rupe               = "";
+      $dato->orden_compra       = "";
+      $dato->glosa_entrada      = "";
+      $dato->glosa_salida       = "COMBUSTIBLE";
+      $dato->motivo             = "";
+      $dato->tipo_factura       = "";
+      $dato->numero_factura     = "";
+      $dato->total_factura      = "";
+      $dato->otro_documento     = "";
+      $dato->eliminacion        = "";
+      $dato->fecha_eliminacion  = "";
+      $dato->id_almacen         = \Auth::user()->id_almacen;
+      $dato->id_cambio          = $id_ufv;
+      $dato->id_concepto        = $id_concepto->id;
+      $dato->id_proveedor       = 1;
+
+      $dato->id_funcionario     = 0;
+      $dato->movimiento_ingreso = "";
+      $dato->id_usuario         = \Auth::user()->id;
+      $dato->eliminacion        = '';
+      $dato->fecha_eliminacion  = '0000-00-00';
+      $dato->id_gestion         = Gestiones::gestion();
+      $dato->save();
+
+      $idMovimiento = \DB::table('movimientos')->max('id');
+
+      for($i=1; $i <= $request->n; $i++ ){
+        $articulos = explode(',', $request['bien_'.$i]);
+        $id_apertura = $request['id_apertura'.$i];
+        $id_clasificador = $request['id_clasificador'.$i];
+        $id_clasificador = explode(',', $id_clasificador);
+        for($j = 0; $j < count($articulos) - 1; $j++){
+          $articulo = $articulos[$j];
+          $articulo = explode('|', $articulo);
+          $canti = trim( $articulo[0] );
+          $costo = trim( $articulo[1] );
+          $total = trim( $articulo[2] );
+          $idart = trim( $articulo[3] );
+          $cantidad = $canti;
+          do{
+            $busqueda = "";
+            $clasificador = "";
+            foreach ($id_clasificador as $id_clasi) {
+              $busqueda = \DB::table('articulos_movimientos')
+                                              ->where('movimiento', '=', 'INGRESO STOCK')
+                                              ->where('cantidad',        '>', '0')
+                                              ->where('cerrado_gestion', '=', 'NO')
+                                              ->where('id_apertura',     '=', $id_apertura)
+                                              ->where('id_clasificador', '=', $id_clasi)
+                                              //->whereRaw("id_clasificador in (".$id_clasificador.")") // 1,2,5,4
+                                              ->where('eliminacion',     '=', '')
+                                              ->where('id_bien',         '=', $idart)
+                                              //->where('id_gestion',      '=', Gestiones::gestion())
+                                              ->orderBy('created_at')
+                                              ->get();
+
+              if( count($busqueda) > 0){
+                  $clasificador = $id_clasi;
+                  break;
+              }
+            }
+
+            $aux = 0;
+            if( floatval($cantidad - $busqueda[0]->cantidad) <= 0 ){
+              $aux = $canti;
+              $cantidad = 0;
+            }elseif( floatval($cantidad - $busqueda[0]->cantidad) > 0 ){
+              $cantidad = $canti - $busqueda[0]->cantidad;
+              $aux      = $canti - $cantidad;
+              $canti = $cantidad;
+            }
+
+            $dato = new ArticulosMovimientos;
+            $dato->movimiento       = 'SALIDA STOCK';
+            $dato->cantidad         = $aux;
+            $dato->cantidad_actual  = $busqueda[0]->cantidad;
+            $dato->cerrado_gestion  = 'NO';
+            $dato->costo            = $busqueda[0]->costo;
+            $dato->total            = ($aux * $busqueda[0]->costo);
+            $dato->costo_actual     = $busqueda[0]->costo;
+            $dato->total_actual     = ($aux * $busqueda[0]->costo);
+            $dato->observacion      = $request['observacion'.$i];
+            $dato->id_funcionario   =  explode("|", $request['id_funcionario'.$i])[0] ;
+            $dato->id_auto          =  explode("|", $request['id_auto'.$i])[0] ;
+            $dato->boleta           =  $request['boleta'.$i];
             $dato->id_movimiento    = $idMovimiento;
             $dato->id_apertura      = $id_apertura;
             $dato->id_clasificador  = $clasificador;

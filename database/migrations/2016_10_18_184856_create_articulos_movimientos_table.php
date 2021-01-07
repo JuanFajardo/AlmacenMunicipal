@@ -29,8 +29,10 @@ class CreateArticulosMovimientosTable extends Migration
         $table->dateTime('fecha_eliminacion')->comment('la fecha de elminacion');
         $table->integer('id_gestion')->references('id')->on('gestiones')->onUpdate('cascade'|'restrict'|'set null'|'no action');
 
-        $table->integer('id_funcionario')->references('id')->on('gestiones')->onUpdate('cascade'|'restrict'|'set null'|'no action');
-        $table->integer('id_auto')->nullable()->comment;
+        $table->integer('id_funcionario')->nullable()->comment('Identificador del funcionario para gasolina');
+        $table->integer('id_auto')->nullable()->comment('Identificador del auto para gasolina');
+        $table->string('boleta')->nullable()->comment('Identificador de la boleta');
+
 
         $table->softDeletes();
         $table->timestamps();

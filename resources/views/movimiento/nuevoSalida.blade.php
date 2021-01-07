@@ -14,7 +14,7 @@ active
 
     <div class="col-lg-12">
       <div class="col-md-4">
-        <label>Ingrese cantidad de aperturas programaticas:</label>
+        <label>Ingrese cantidad de salidas:</label>
       </div>
       {!! Form::open(['url'=>'Movimiento/salidaStock', 'autocomplete'=>'off', 'method'=>'POST' ]) !!}
         <div class="col-md-3 col-sm-2">
@@ -27,7 +27,8 @@ active
       </div>
         @if($dato >0 )
           <div class="col-md-3 col-sm-6">
-            {!! Form::submit('Salidas Stock',  ['class'=>'btn btn-primary']) !!}
+            <input type="submit" name="boton" value="Salidas Stock" class='btn btn-primary'>
+            <input type="submit" name="boton" value="Salidas Combustible" class='btn btn-success'>
           </div>
         @else
           <div class="col-md-3 col-sm-6">

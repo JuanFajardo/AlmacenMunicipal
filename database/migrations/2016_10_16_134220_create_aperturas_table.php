@@ -13,6 +13,14 @@ class CreateAperturasTable extends Migration
         $table->string('apertura', 100)->comment('Nombre de la apertura');
         $table->integer('id_usuario')->references('id')->on('users')->onUpdate('cascade'|'restrict'|'set null'|'no action');
         $table->integer('id_gestion')->references('id')->on('gestiones')->onUpdate('cascade'|'restrict'|'set null'|'no action');
+
+        $table->integer('id_almacen')->nullable();
+        $table->string('fuente')->nullable();
+        $table->integer('fuente_codigo')->nullable();
+        $table->string('organismo')->nullable();
+        $table->integer('organismo_codigo')->nullable();
+
+
         $table->softDeletes();
         $table->timestamps();
       });

@@ -44,28 +44,32 @@
           <div class="form-group col-md-12">
             <h4><span class="glyphicon glyphicon-book col-md-12" style="color: #0288D1; padding: 7px; background-color: #B3E5FC; border-radius:10px;"><b> DOCUMENTOS </span></h4>
 
-            <div class="col-md-4">
+            <!--<div class="col-md-4">
               <label for="" class="control-label">Nro. Informe</label><br>
-              <input type="text" class="form-control"  name="codigo_informe" >
+              <input type="hidden" class="form-control"  name="codigo_informe" value="0" >
             </div>
             <div class="col-md-4">
               <label for="" class="control-label">Orden de Compra</label><br>
-              <input type="text" class="form-control"  name="orden_compra" id="orden_compra"  >
+              <input type="hidden" class="form-control"  name="orden_compra" id="orden_compra" value="0"  >
             </div>
             <div class="col-md-4">
               <label for="" class="control-label">RUPE</label><br>
-              <input type="text" class="form-control"  name="rupe" id="rupe"  >
+              <input type="hidden" class="form-control"  name="rupe" id="rupe" value="0" >
             </div>
-          </div>
+          </div>-->
+          <input type="hidden" class="form-control"  name="codigo_informe" value="0" >
+          <input type="hidden" class="form-control"  name="orden_compra" id="orden_compra" value="0"  >
+          <input type="hidden" class="form-control"  name="rupe" id="rupe" value="0" >
+
           <div class="form-group col-md-12">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <label for="" class="control-label">Nro. de Pedido</label><br>
               <input type="text" class="form-control"  name="codigo_pedido" >
             </div>
-            <div class="col-md-6">
+            <!--<div class="col-md-6">
               <label for="" class="control-label">Otro Documento</label><br>
-              <input type="text" class="form-control"  placeholder="Carta,.. etc."   name="otro_documento">
-            </div>
+              <input type="hidden" class="form-control"  placeholder="Carta,.. etc."   name="otro_documento" value="0" >
+            </div>--><input type="hidden" class="form-control"  placeholder="Carta,.. etc."   name="otro_documento" value="0" >
           </div>
 
           <div class="form-group col-md-12">

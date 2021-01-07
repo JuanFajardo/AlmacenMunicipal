@@ -123,10 +123,13 @@
             <td colspan="4" class="uno">
               <label> <b>Fecha:</b> </label>{{ date("d/m/Y", strtotime($movimientoDato->fecha))}}
             </td>
+            <!--
             <td class="uno" align="right">
               <label> <b>Motivo:</b></label> {{ $dato->concepto }}
             </td>
+          -->
           </tr>
+          <!--
           <tr>
             @if( !empty($movimientoDato->codigo_informe))
               <td  class="uno" colspan="2"><label> <b>Nro. de Informe:</b> </label>{{$movimientoDato->codigo_informe}}</td>
@@ -143,6 +146,7 @@
                <td class="uno" colspan="8"><label> <b>Otros Documentos:</b> </label>{{$movimientoDato->otro_documento}}</td>
             </tr>
           @endif
+        -->
           @if( !empty($movimientoDato->codigo_pedido))
             <tr>
               <td  class="uno" colspan="8"><label> <b>Nro. de Pedido:</b> </label> {{$movimientoDato->codigo_pedido}}</td>
@@ -154,10 +158,12 @@
             <td colspan="5" class="uno"><label> <b>Apertura Programatica: </b> </label> <br>
               @foreach($aperturasMovimientos as $apertura)
                   {{$apertura->codigo}} - {{$apertura->apertura}}<br>
+                  <b>FTE:</b> {{$apertura->fuente_codigo}} <br>
+                  <b>Org.:</b> {{$apertura->organismo_codigo}} <br>
               @endforeach
             </td>
           </tr>
-
+          <!--
           <tr>
             <td colspan="5" class="uno">
               <label> <b>Partida Clasificatoria: </b></label> <br>
@@ -166,6 +172,7 @@
               @endforeach
             </td>
           </tr>
+        -->
           <tr>
             <td colspan="2" class="uno"> <b>Proveedor : </b> {{$dato->proveedor}} </td>
             <td colspan="2" class="uno"> <b>Representante : </b>{{$dato->responsable}} </td>

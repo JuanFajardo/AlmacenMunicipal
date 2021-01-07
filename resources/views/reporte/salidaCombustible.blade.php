@@ -122,11 +122,9 @@
             <td colspan="4" class="uno">
               <label> <b>Fecha:</b> </label>{{ date("d/m/Y", strtotime($movimientoDato->fecha))}}
             </td>
-            <!--
             <td class="uno" align="right">
-              <label> <b>Motivo:</b></label> {{ $dato->concepto }}
+              <!-- <label> <b>Motivo:</b></label> {{ $dato->concepto }} -->
             </td>
-          -->
           </tr>
           <tr>
             @if( !empty($movimientoDato->codigo_informe))
@@ -142,7 +140,6 @@
               <td class="uno" colspan="2"><label> <b>Codigo de Tramite:</b> </label> {{$movimientoDato->codigo_tramite}}</td>
             @endif
           </tr>
-          <!--
           @if( !empty($movimientoDato->otro_documento))
             <tr>
                <td class="uno" colspan="8"><label> <b>Otros Documentos:</b> </label>{{$movimientoDato->otro_documento}}</td>
@@ -153,7 +150,6 @@
               <td  class="uno" colspan="8"><label> <b>Nro. de Pedido:</b> </label> {{$movimientoDato->codigo_pedido}}</td>
             </tr>
           @endif
-        -->
           <tr>
             <td colspan="5" class="uno"><label> <b>Apertura Programatica: </b> </label> <br>
               @foreach($aperturasMovimientos as $apertura)
@@ -163,7 +159,7 @@
               @endforeach
             </td>
           </tr>
-          <!--
+<!--
           <tr>
             <td colspan="5" class="uno">
               <label> <b>Partida Clasificatoria: </b></label> <br>
@@ -172,13 +168,12 @@
               @endforeach
             </td>
           </tr>
-        -->
           <tr>
             <td colspan="5" class="uno"> <b>Funcionario : </b>  {{$dato->nombres}} {{$dato->paterno}} {{$dato->materno}}</td>
           </tr>
           <tr>
             <td colspan="5" class="uno"> <b>Unidad : </b> {{$dato->estructura}}</td>
-          </tr>
+          </tr>-->
 
 
           @if($movimientoDato->movimiento == "SALIDA" )
@@ -207,13 +202,18 @@
             </tr>
             <tr>
               <td style="text-align:center;"><b>Nro</td>
+              <td style="text-align:center;"><b>Cantidad</td>
+              <td style="text-align:center;"><b>Unidad</td>
               <td style="text-align:center;"><b>Apertura</td>
               <td style="text-align:center;"><b>Codigo</td>
               <td style="text-align:center;"><b>Detalle</td>
-              <td style="text-align:center;"><b>Unidad</td>
+              <td style="text-align:center;"><b>Funcionario</td>
+              <td style="text-align:center;"><b>Automovil</td>
+                <td style="text-align:center;"><b>Nro. Boleta</td>
+              <!--
               <td style="text-align:center;"><b>Prec. Unit</td>
-              <td style="text-align:center;"><b>Cantidad</td>
               <td style="text-align:center;"><b>Monto Total</td>
+              -->
             </tr>
           </thead>
           <tbody>
@@ -222,16 +222,21 @@
                <?php $i++; ?>
                <tr>
                 <td>{{$i}}</td>
+                <td height="1" style="padding-top:0px; padding-bottom:0px; text-align: right;"> {{$dato->cantidad}} </td>
+                <td height="1" style="padding-top:0px; padding-bottom:0px; "> LITROS </td>
                 <td height="1" style="padding-top:0px; padding-bottom:0px;"> {{$dato->aperturacodigo}} </td>
                 <td height="1" style="padding-top:0px; padding-bottom:0px;"> {{$dato->clasificadorcodigo}}.{{$dato->id_almacen}}.{{$dato->codigo}} </td>
-                 <td height="1" style="padding-top:0px; padding-bottom:0px; "> {{$dato->bien}} </td>
-                 <td height="1" style="padding-top:0px; padding-bottom:0px; "> {{$dato->unidad}} </td>
-                 <td height="1" style="padding-top:0px; padding-bottom:0px; text-align: right;">
+                <td height="1" style="padding-top:0px; padding-bottom:0px; "> {{$dato->bien}} </td>
+                <td height="1" style="padding-top:0px; padding-bottom:0px; "> {{$dato->nombres}} {{$dato->paterno}} {{$dato->materno}} </td>
+                <td height="1" style="padding-top:0px; padding-bottom:0px; "> {{$dato->placa}} - {{$dato->tipo}} - {{$dato->color}} </td>
+                <td height="1" style="padding-top:0px; padding-bottom:0px; "> {{$dato->boleta}} </td>
+                <!--
+                <td height="1" style="padding-top:0px; padding-bottom:0px; text-align: right;">
                  {{ number_format($dato->costo, 2, ",", ".") }}</td>
-                 <td height="1" style="padding-top:0px; padding-bottom:0px; text-align: right;"> {{$dato->cantidad}} </td>
                  <td height="1" style="padding-top:0px; padding-bottom:0px; text-align: right;">
                  {{ number_format($dato->total, 2, ",", ".") }}
                  </td>
+               -->
               </tr>
               @if($movimientoDato->movimiento == "SALIDA STOCK" )
                 <?php $suma=$suma+$dato->total; ?>

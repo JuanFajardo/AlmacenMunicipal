@@ -10,9 +10,13 @@
        <table class="one" datatable="ng" dt-options="vm.dtOptions" width="100%">
         <thead>
           <tr>
-            <th width="5%"> Nro. </th> 
+            <th width="5%"> Nro. </th>
             <th width="20%"> Codigo </th>
-            <th width="45%"> Apertura </th> 
+            <th width="45%"> Apertura </th>
+            <th width="45%"> Fuente de Financiamiento </th>
+            <th width="45%"> Codigo de Fuente </th>
+            <th width="45%"> Organismo Inversion </th>
+            <th width="45%"> Codigo de Organismo </th>
             <th width="30%"> Acciones </th>
           </tr>
         </thead>
@@ -21,10 +25,14 @@
             <td> {{$index+1}} </td>
             <td> {{Apertura.codigo}} </td>
             <td style="text-align: left;"> {{Apertura.apertura}} </td>
+            <td style="text-align: left;"> {{Apertura.fuente}} </td>
+            <td style="text-align: left;"> {{Apertura.fuente_codigo}} </td>
+            <td style="text-align: left;"> {{Apertura.organismo}} </td>
+            <td style="text-align: left;"> {{Apertura.organismo_codigo}} </td>
             <td>
               <div >
-                <a href="#/apertura/edit/{{Apertura.id}}" style="color:#f0ad4e;"> <i class="fa fa-pencil" aria-hidden="true"></i> Editar </a> &nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="#/apertura/view/{{Apertura.id}}" style="color:#31708f;"> <i class="fa fa-eye" aria-hidden="true"></i> Ver </a> &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#/apertura/edit/{{Apertura.id}}" style="color:#f0ad4e;"> <i class="fa fa-pencil" aria-hidden="true"></i> Editar </a> <br>
+                <a href="#/apertura/view/{{Apertura.id}}" style="color:#31708f;"> <i class="fa fa-eye" aria-hidden="true"></i> Ver </a> <br>
                 <a href="#/apertura/delete/{{Apertura.id}}" style="color:#c12e2a;"> <i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar</a> </td>
               </div>
 

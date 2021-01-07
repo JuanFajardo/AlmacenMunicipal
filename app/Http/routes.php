@@ -78,7 +78,9 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('Movimiento/salidaStock', 'MovimientosController@salidaStockNuevo');
     Route::post('Movimiento/salidaStock', 'MovimientosController@salidaStock');
+
     Route::post('Movimiento/salidaStockS', 'MovimientosController@salidaStockStore');
+    Route::post('Movimiento/salidaCombustibleS', 'MovimientosController@salidaCombustibleStore')->name('salida.combustible');
 
     Route::get('Movimiento/confirmar/{id}', 'MovimientosController@confirmar');
     Route::get('Movimiento/eliminar/{id}', 'MovimientosController@eliminar');

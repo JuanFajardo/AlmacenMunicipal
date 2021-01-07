@@ -5,14 +5,41 @@
     <div class="panel-body">
 
       <form autocomplete="off" ng-submit="saveApertura()">
+
         <div class="form-group col-md-4">
           <label>Codigo de Apertura</label>
-          <input type="text" class="form-control"  placeholder="Codigo de Apertura  Ej.31000"  ng-model="Aperturas.codigo" autofocus>          
+          <input type="text" class="form-control"  placeholder="Codigo de Apertura  Ej.31000"  ng-model="Aperturas.codigo" autofocus>
         </div>
-        <div class="form-group col-md-8">
+        <div class="form-group col-md-4">
           <label>Apertura Programatica</label>
           <input type="text" class="form-control"  placeholder="Apertura Programatica"   ng-model="Aperturas.apertura">
         </div>
+        <div class="form-group col-md-4">
+          <label>Almacen</label>
+          <select class="form-control" ng-model="Aperturas.id_almacen" required>
+              <option value="">-Seleccione Almacen-</option>
+              <option ng-repeat="Almacen in Almacenes"  ng-selected="Aperturas.id_almacen == Almacen.id"  value="{{Almacen.id}}"> {{Almacen.almacen}} </option>
+          </select>
+        </div>
+
+        <div class="form-group col-md-3">
+          <label>Fuente de Financiamiento</label>
+          <input type="text" class="form-control"  placeholder="Fuente de Financiamiento"   ng-model="Aperturas.fuente">
+        </div>
+        <div class="form-group col-md-3">
+          <label>Codigo de Fuente</label>
+          <input type="text" class="form-control"  placeholder="Codigo de Fuente"   ng-model="Aperturas.fuente_codigo">
+        </div>
+        <div class="form-group col-md-3">
+          <label>Organismo de Inversion</label>
+          <input type="text" class="form-control"  placeholder="Organismo"   ng-model="Aperturas.organismo">
+        </div>
+        <div class="form-group col-md-3">
+          <label>Codigo de Organismo</label>
+          <input type="text" class="form-control"  placeholder="Codigo Organismo"   ng-model="Aperturas.organismo_codigo">
+        </div>
+
+
         <div class="rows">
           <div class="col-md-2">
             <button type="submit" name="button" class="{{accion}}">
