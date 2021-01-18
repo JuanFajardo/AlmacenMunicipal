@@ -215,7 +215,8 @@
             </li>
             <li class="@yield('salida')has-submenu"><a href=""><i class="fa fa-send"></i> <span class="nav-label">Salida de Almacen</span></a>
               <ul class="list-unstyled">
-                <li class="@yield('salida1')"><a href="{{asset('/index.php/Movimiento/salidaStock')}}">Stock</a></li>
+                <li class="@yield('salida1')"><a href="{{asset('/index.php/Movimiento/salidaStock/Sotk')}}">Salida Stock</a></li>
+                <li class="@yield('salida2')"><a href="{{asset('/index.php/Movimiento/salidaStock/combustible')}}">Salida Combustible</a></li>
               </ul>
             </li>
             <li class="@yield('movimiento')has-submenu"><a href=""><i class="fa fa-database"></i> <span class="nav-label">Movimientos</span></a>

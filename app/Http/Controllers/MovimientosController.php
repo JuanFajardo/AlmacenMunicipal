@@ -335,10 +335,10 @@ class MovimientosController extends Controller
   * Menu: Salida de almacen ->  Stock
   * Link: index.php/Movimiento/salidaStock | get
   */
-  public function salidaStockNuevo(){
+  public function salidaStockNuevo($id){
     try{
       $dato = Cambios::where('fecha', '=', date('Y-m-d'))->count();
-      return view('movimiento.nuevoSalida', compact('dato') );
+      return view('movimiento.nuevoSalida', compact('dato', 'id') );
     }catch(\Exception $err){
       return "<script> alert('Error M0009: No se creo el formulario de Aperturas de Salida Stock \n".$e->getMessage()."'); location.href='".asset('index.php/Movimientos')."'; </script>";
     }

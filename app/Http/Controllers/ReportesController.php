@@ -534,7 +534,10 @@ class ReportesController extends Controller
         ->setOption('footer-spacing', 1)
         ->setOption('footer-html', asset('pie.php'));
 
+
+        return $pdf->inline();
         return $pdf->inline('Funcionarios'.date('Ymdhis').'.pdf');
+
       }catch (Exception $e) {
         return "<script> alert('Error R0005: Reporte de movimientos por funcionarios \n".$e->getMessage()."'); location.href='".asset('index.php/Reportes')."'; </script>";
       }
@@ -634,7 +637,7 @@ class ReportesController extends Controller
         }
 
         return view($link, compact('datos', 'configuracion',  'aperturas', 'fechaInicio', 'fechaFin', 'idAlmacen','almacen') );
-        
+
         $pdf = \PDF::loadView($link, compact('datos', 'configuracion',  'aperturas', 'fechaInicio', 'fechaFin', 'idAlmacen','almacen') )
         ->setPaper('letter')->setOrientation('portrait')
         ->setOption('page-width', '216mm')

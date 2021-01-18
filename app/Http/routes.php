@@ -5,6 +5,7 @@ Route::get('/Instalador', 'InstaladorController@uno');
 Route::post('/Instalador', 'InstaladorController@dos');
 Route::post('/Instalador/finalizar', 'InstaladorController@tres');
 
+
 Route::group(['middleware' => 'web'], function () {
 
     Route::get('/', function () {
@@ -13,7 +14,6 @@ Route::group(['middleware' => 'web'], function () {
         else
           return view('index');
     });
-
 
     Route::get('/ufv', 'ParametrosController@insertarUFV');
     //Route::auth();
@@ -76,7 +76,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('Movimientos/{id}/articulo', 'MovimientosController@articulosShow');
     Route::get('Movimientos/{id}/fecha', 'MovimientosController@fecha');
 
-    Route::get('Movimiento/salidaStock', 'MovimientosController@salidaStockNuevo');
+    Route::get('Movimiento/salidaStock/{id}', 'MovimientosController@salidaStockNuevo');
     Route::post('Movimiento/salidaStock', 'MovimientosController@salidaStock');
 
     Route::post('Movimiento/salidaStockS', 'MovimientosController@salidaStockStore');
