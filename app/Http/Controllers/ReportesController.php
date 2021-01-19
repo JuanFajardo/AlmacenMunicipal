@@ -1155,6 +1155,74 @@ class ReportesController extends Controller
     }
 
 
+
+    public function combustibleIndex(){
+      try{
+        $almacenes   = \DB::table('almacenes')->get();
+        return view( 'reporte.combustible', compact('almacenes') );
+      }catch (Exception $e) {
+        return "<script> alert('Error R0016: Formulario: Reporte de combustible \n".$e->getMessage()."'); location.href='".asset('index.php/Reportes')."'; </script>";
+      }
+    }
+
+    public function combustible(Request $request){
+      //return $request->all();
+      try{
+        $datos = \DB::table('articulos_movimientos')->join('users',              'articulos_movimientos.id_usuario',      '=', 'users.id')
+                                                    ->join('movimientos',        'articulos_movimientos.id_movimiento',   '=', 'movimientos.id')
+                                                    ->join('conceptos',          'movimientos.id_concepto',               '=', 'conceptos.id')
+                                                    ->join('bienes',             'articulos_movimientos.id_bien',         '=', 'bienes.id')
+                                                    ->join('unidades',           'bienes.id_unidad',                      '=', 'unidades.id')
+                                                    ->join('aperturas',          'articulos_movimientos.id_apertura',     '=', 'aperturas.id')
+                                                    ->join('clasificadores',     'articulos_movimientos.id_clasificador', '=', 'clasificadores.id')
+                                                    ->join('autos',              'articulos_movimientos.id_auto',         '=', 'autos.id')
+                                                    ->join('funcionarios',       'articulos_movimientos.id_funcionario',  '=', 'funcionarios.id')
+                                                    ->where('movimientos.glosa_salida',             '=', 'COMBUSTIBLE')
+                                                    ->where('articulos_movimientos.eliminacion',    '=', '' )
+                                                    ->where('articulos_movimientos.created_at',     '>', Carbon::parse($request->fecha_inicio) )
+                                                    ->orWhere('articulos_movimientos.created_at',   '=', Carbon::parse($request->fecha_inicio) )
+                                                    ->where('articulos_movimientos.created_at',     '<', Carbon::parse($request->fecha_fin) )
+                                                    ->orWhere('articulos_movimientos.created_at',   '=', Carbon::parse($request->fecha_fin) )
+                                                    ->select('articulos_movimientos.id', 'articulos_movimientos.*',
+                                                    'movimientos.fecha as movimientoFecha', 'movimientos.movimiento as movimientoTipo', 'movimientos.nro_moviento', 'movimientos.glosa_salida',
+                                                    'conceptos.tipo', 'conceptos.concepto',
+                                                    'users.name', 'bienes.bien', 'bienes.codigo as bienCodigo',
+                                                    'aperturas.codigo as aperturaCodigo', 'aperturas.*', 'autos.*', 'funcionarios.*',
+                                                    'clasificadores.codigo as clasificadorCodigo')
+                                                    ->orderBy('clasificadores.id')
+                                                    ->orderBy('bienes.bien', 'asc')
+                                                    ->orderBy('articulos_movimientos.id_bien', 'asc')
+                                                    ->orderBy('articulos_movimientos.movimiento', 'asc')
+                                                    ->get();
+
+        $fechaInicio =  $request->fecha_inicio;
+        $fechaFin    =  $request->fecha_fin;
+        $apertura = $request->id_apertura;
+        $configuracion = \DB::table('configuraciones')->first();
+        $almacen = \DB::table('almacenes')->select('almacen')->first();
+
+        //return $datos;
+        $pdf = \PDF::loadView('reporte.combustibleReporte', compact('datos', 'configuracion', 'fechaInicio', 'fechaFin', 'almacen') )
+        ->setPaper('letter')->setOrientation('portrait')
+        ->setOption('page-width', '216mm')
+        ->setOption('page-height', '279mm')
+        ->setOption('margin-right', '10mm')
+        ->setOption('margin-left', '15mm')
+        ->setOption('margin-bottom', '15mm')
+        ->setOption('header-spacing', 15)
+        ->setOption('footer-spacing', 1)
+        ->setOption('footer-html', asset('pie.php'));
+
+        return $pdf->inline('Clasificadores_'.date('Ymdhis').'.pdf');
+      }catch (Exception $e) {
+        return "<script> alert('Error R0017: Reporte de combustible \n".$e->getMessage()."'); location.href='".asset('index.php/Reportes')."'; </script>";
+      }
+
+
+    }
+
+
+
         /**
          * Formulario: Reporte de bienes por clasificadores Stock/Inmediato
          * Link: index.php/Reportes/clasificador | get

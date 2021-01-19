@@ -104,6 +104,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('Reportes/apertura', 'ReportesController@aperturaIndex');
     Route::post('Reportes/apertura', 'ReportesController@apertura');
 
+    Route::get('Reportes/combustible', 'ReportesController@combustibleIndex');
+    Route::post('Reportes/combustible', 'ReportesController@combustible');
+
     Route::get('Reportes/clasificador', 'ReportesController@clasificadorIndex');
     Route::post('Reportes/clasificador', 'ReportesController@clasificador');
 

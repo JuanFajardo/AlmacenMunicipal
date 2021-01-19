@@ -239,7 +239,7 @@
                 <li class="@yield('reportes6')"><a href="{{asset('/index.php/Reportes/funcionario')}}">Funcionarios</a></li>
                 <li class="@yield('reportes7')"><a href="{{asset('/index.php/Reportes/estructura')}}">Unidad Administrativa</a></li>
                 <li class="@yield('reportes8')"><a href="{{asset('/index.php/Reportes/proveedor')}}">Proveedor</a></li>
-                <li class="@yield('reportes9')"><a href="{{asset('/index.php/Reportes/automovil')}}">Combustible</a></li>
+                <li class="@yield('reportes9')"><a href="{{asset('/index.php/Reportes/combustible')}}">Combustible</a></li>
               </ul>
             </li>
             <li class="@yield('productos')has-submenu"><a href=""><i class="fa fa-eye-slash"></i> <span class="nav-label">Productos en Desuso </span></a>
