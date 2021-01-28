@@ -162,7 +162,7 @@ class MovimientosController extends Controller
       $datos = \DB::table('articulos_movimientos')->where('id_movimiento', '=', $id)
                                                   ->where('cerrado_gestion', '=', 'NO')
                                                   ->where('eliminacion', '=', '')
-                                                  ->where('id_gestion', '=', Gestiones::gestion())
+                                                  //->where('id_gestion', '=', Gestiones::gestion())
                                                   ->get();
       return response()->json($datos);
     }catch (Exception $e){
@@ -705,8 +705,6 @@ class MovimientosController extends Controller
   * Link: index.php/Movimientos/{id} | get
  */
   public function show($id){
-    return $id;
-
     try{
       $movimientos  = \DB::table('movimientos')->join('users',                    'movimientos.id_usuario',    '=', 'users.id')
                                                ->join('proveedores',               'movimientos.id_proveedor',  '=', 'proveedores.id')

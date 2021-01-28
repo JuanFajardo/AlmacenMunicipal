@@ -31,14 +31,11 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('Funcionarios', 'FuncionariosController');
     Route::resource('Clasificadores', 'ClasificadoresController');
 
-
     Route::get('Clasificadores/{id}/buscar', 'ClasificadoresController@buscar');
     Route::get('Clasificadores/ver/JSON/list', 'ClasificadoresController@ver');
     Route::get('Clasificadores/ver/JSON/list/{id}', 'ClasificadoresController@verSalida');
 
     Route::resource('ArticulosMovimientos', 'ArticulosMovimientosController');
-
-
 
     Route::resource('Aperturas', 'AperturasController');
     Route::get('Aperturas/{id}/buscar', 'AperturasController@buscar');
