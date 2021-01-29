@@ -108,6 +108,7 @@ class BienesController extends Controller
   }
 
   public function store(Request $request){
+    $request['id_almacen'] = 0;
     $request['id_usuario'] = \Auth::user()->id;
     $request['id_gestion'] = Gestiones::gestion();
     $numero = Bienes::Where('id_clasificador', '=', $request->id_clasificador)->max('codigo');
@@ -117,6 +118,7 @@ class BienesController extends Controller
   }
 
   public function update(Request $request, $id){
+    $request['id_almacen'] = 0;
     $request['id_usuario'] = \Auth::user()->id;
     $request['id_gestion'] = Gestiones::gestion();
     $numero = Bienes::Where('id_clasificador', '=', $request->id_clasificador)->where('bienes.id_gestion', '=', Gestiones::gestion())->max('codigo');

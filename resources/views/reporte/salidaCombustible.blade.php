@@ -159,7 +159,7 @@
               @endforeach
             </td>
           </tr>
-<!--
+          <!--
           <tr>
             <td colspan="5" class="uno">
               <label> <b>Partida Clasificatoria: </b></label> <br>
@@ -174,8 +174,6 @@
           <tr>
             <td colspan="5" class="uno"> <b>Unidad : </b> {{$dato->estructura}}</td>
           </tr>-->
-
-
           @if($movimientoDato->movimiento == "SALIDA" )
           <tr>
             <td colspan="2" class="uno"> <b>Proveedor : </b> {{$dato->proveedor}} </td>
@@ -198,22 +196,23 @@
         <table width="100%" border="1" >
           <thead   style="border:solid 1px black; background-color:#BECCD2;">
             <tr>
-              <td style="text-align:center;" colspan="8"><b>Artículos</td>
+              <td style="text-align:center;" colspan="9"><b>Artículos</td>
             </tr>
             <tr>
+              <!-- Nº. Apertura, Clasificador, codigo articulo, detalle, unidad, Cantidad,
+              total,
+              Nro_de boleta, funcionario, Automovil,
+              -->
               <td style="text-align:center;"><b>Nro</td>
-              <td style="text-align:center;"><b>Cantidad</td>
-              <td style="text-align:center;"><b>Unidad</td>
               <td style="text-align:center;"><b>Apertura</td>
               <td style="text-align:center;"><b>Codigo</td>
               <td style="text-align:center;"><b>Detalle</td>
+              <td style="text-align:center;"><b>Unidad</td>
+              <td style="text-align:center;"><b>Cantidad</td>
+
+              <td style="text-align:center;"><b>Nro. Boleta</td>
               <td style="text-align:center;"><b>Funcionario</td>
               <td style="text-align:center;"><b>Automovil</td>
-                <td style="text-align:center;"><b>Nro. Boleta</td>
-              <!--
-              <td style="text-align:center;"><b>Prec. Unit</td>
-              <td style="text-align:center;"><b>Monto Total</td>
-              -->
             </tr>
           </thead>
           <tbody>
@@ -222,14 +221,16 @@
                <?php $i++; ?>
                <tr>
                 <td>{{$i}}</td>
-                <td height="1" style="padding-top:0px; padding-bottom:0px; text-align: right;"> {{$dato->cantidad}} </td>
-                <td height="1" style="padding-top:0px; padding-bottom:0px; "> LITROS </td>
                 <td height="1" style="padding-top:0px; padding-bottom:0px;"> {{$dato->aperturacodigo}} </td>
                 <td height="1" style="padding-top:0px; padding-bottom:0px;"> {{$dato->clasificadorcodigo}}.{{$dato->id_almacen}}.{{$dato->codigo}} </td>
                 <td height="1" style="padding-top:0px; padding-bottom:0px; "> {{$dato->bien}} </td>
+                <td height="1" style="padding-top:0px; padding-bottom:0px; "> LITROS </td>
+                <td height="1" style="padding-top:0px; padding-bottom:0px; text-align: right;"> {{$dato->cantidad}} </td>
+
+                <td height="1" style="padding-top:0px; padding-bottom:0px; "> {{$dato->boleta}} </td>
                 <td height="1" style="padding-top:0px; padding-bottom:0px; "> {{$dato->nombres}} {{$dato->paterno}} {{$dato->materno}} </td>
                 <td height="1" style="padding-top:0px; padding-bottom:0px; "> {{$dato->placa}} - {{$dato->tipo}} - {{$dato->color}} </td>
-                <td height="1" style="padding-top:0px; padding-bottom:0px; "> {{$dato->boleta}} </td>
+
                 <!--
                 <td height="1" style="padding-top:0px; padding-bottom:0px; text-align: right;">
                  {{ number_format($dato->costo, 2, ",", ".") }}</td>
